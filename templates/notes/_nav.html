@@ -1,0 +1,18 @@
+{% load static %}
+
+<nav class="navbar navbar-expand navbar-light mb-3 rounded-3 shadow-sm p-2 position-relative z-3 nav_custom">
+    <div class="container-fluid">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-wrap">
+                <li class='nav-item'><a class="nav-link" href="{% url 'notes:notes-list' %}">Notes List</a></li>
+                <li class='nav-item'><a class="nav-link" href="{% url 'notes:note-create' %}">Create Note</a></li>
+                <li class='nav-item'><a class="nav-link" href="{% url 'notes:notes-list' %}?is_completed=True">Completed</a></li>
+                <li class='nav-item'><a class="nav-link" href="{% url 'notes:notes-list' %}?is_completed=False">Incomplete</a></li>
+        </ul>
+
+        <form class="d-flex mb-0 ms-3 gap-2" role="search" action="{% url 'notes:notes-list' %}">
+            <input class="form-control form-control-sm rounded-pill px-3 py-0" type="search" 
+                placeholder="notes" name='searched' />
+            <button class="btn btn-outline-success btn-sm rounded-pill px-3 py-0" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+</nav>

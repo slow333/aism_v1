@@ -1,0 +1,268 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<style>
+    .h-10px { height: 10px;}
+    .h4 {display: inline-block; }
+    .card-body, .h4, .card-footer, .card-header { text-align: center; }
+</style>
+<div class="container-fluid">
+    {% include 'asct/_nav.html' %}
+    <h1 class="mt-4">Dashboard</h1>
+    <!-- 요약 카드 -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card glass-card mb-4">
+                <div class="card-body">Total Servers</div>
+                <div class="card-footer">
+                    <span class="h4">{{ total_servers }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card glass-card mb-4">
+                <div class="card-body">Physical Servers</div>
+                <div class="card-footer">
+                    <span class="h4">{{ physical_count }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card glass-card mb-4">
+                <div class="card-body">Virtual Servers</div>
+                <div class="card-footer">
+                    <span class="h4">{{ virtual_count }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Celery Status Card -->
+    <div class="card glass-card mb-4">
+        <div class="card-header flex-between">
+            <div>
+                <i class="fas fa-network-wired me-1"></i>
+                Celery Worker Status
+            </div>
+            <button class="btn btn-sm btn-outline-primary" onclick="checkCeleryStatus()">
+                <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+        </div>
+        <div class="card-body text-start" id="celery-status-body">
+            <div class="text-secondary">
+                <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                <span>Checking status...</span>
+            </div>
+        </div>
+    </div>
+
+<script>
+function checkCeleryStatus() {
+    const statusDiv = document.getElementById('celery-status-body');
+    // 로딩 상태 표시
+    statusDiv.innerHTML = `
+        <div class="d-flex text-secondary">
+            <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+            <span>Checking status...</span>
+        </div>`;
+    
+    fetch("{% url 'asct:celery_status' %}")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'running') {
+                let workerList = '';
+                data.workers.forEach(worker => {
+                    workerList += `<span class="badge bg-success me-1">${worker}</span>`;
+                });
+                
+                let taskListHtml = '';
+                let hasTasks = false;
+
+                if (data.active_tasks) {
+                    for (const [workerName, tasks] of Object.entries(data.active_tasks)) {
+                        if (tasks.length > 0) {
+                            hasTasks = true;
+                            tasks.forEach(task => {
+                                let argsDisplay = '';
+                                if (task.args && task.args.length > 0) {
+                                    argsDisplay = ` <small class="text-muted">(${task.args})</small>`;
+                                }
+                                taskListHtml += `
+                                    <li class="list-group-item px-0 border-0 border-bottom">
+                                        <div class="d-flex">
+                                            <div class="text-truncate" style="max-width: 75%;">
+                                                <i class="fas fa-cog fa-spin text-primary me-2"></i>
+                                                <strong>${task.name}</strong>${argsDisplay}
+                                                <div class="small text-muted ms-4" style="font-size: 0.8em;">ID: ${task.id}</div>
+                                            </div>
+                                            <span class="badge bg-secondary text-truncate" style="max-width: 20%; font-size: 0.7em;" title="${workerName}">${workerName}</span>
+                                        </div>
+                                    </li>`;
+                            });
+                        }
+                    }
+                }
+
+                const tasksSection = hasTasks 
+                    ? `<div class="mt-3 border-top pt-2"><h6 class="text-primary small fw-bold">
+                        Active Tasks</h6>
+                        <ul class="list-group list-group-flush">${taskListHtml}</ul></div>`
+                    : `<div class="mt-3 border-top pt-2 text-muted small">
+                        No active tasks running.</div>`;
+
+                statusDiv.innerHTML = `
+                    <div class="alert alert-success mb-0">
+                        <strong>Running</strong><br>
+                        <div class="mt-2">Workers: ${workerList}</div>
+                    </div>${tasksSection}`;
+            } else {
+                statusDiv.innerHTML = `
+                    <div class="alert alert-warning mb-0">
+                        ${data.message || 'Unknown status'}
+                    </div>`;
+            }
+        })
+        .catch(error => {
+            statusDiv.innerHTML = `
+                <div class="alert alert-danger mb-0">
+                    Connection Failed (Celery might be down)
+                </div>`;
+        });
+}
+
+// 페이지 로드 시 자동으로 상태 확인
+document.addEventListener('DOMContentLoaded', checkCeleryStatus);
+</script>
+
+
+    <!-- 리소스 사용률 Top 5 -->
+    <div class="row">
+        <!-- CPU Usage -->
+        <div class="col-md-4">
+            <div class="card glass-card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-microchip me-1"></i> Top CPU Usage (%)
+                </div>
+                <div class="card-body">
+                    {% for server in top_cpu_usage %}
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>{{ server.hostname }}</span>
+                            <span class="fw-bold">{{ server.cpu_usage }}%</span>
+                        </div>
+                        <div class="progress h-10px">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{ server.cpu_usage }}%" aria-valuenow="{{ server.cpu_usage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted text-center my-3">No data available</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Memory Usage -->
+        <div class="col-md-4">
+            <div class="card glass-card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-memory me-1"></i> Top Memory Usage (%)
+                </div>
+                <div class="card-body">
+                    {% for server in top_memory_usage %}
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>{{ server.hostname }}</span>
+                            <span class="fw-bold">{{ server.memory_usage }}%</span>
+                        </div>
+                        <div class="progress h-10px"">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ server.memory_usage }}%" aria-valuenow="{{ server.memory_usage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted text-center my-3">No data available</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Disk Usage -->
+        <div class="col-md-4">
+            <div class="card glass-card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-hdd me-1"></i> Top Disk Usage (%)
+                </div>
+                <div class="card-body">
+                    {% for server in top_disk_usage %}
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>{{ server.hostname }}</span>
+                            <span class="fw-bold">{{ server.disk_usage }}%</span>
+                        </div>
+                        <div class="progress h-10px">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ server.disk_usage }}%" aria-valuenow="{{ server.disk_usage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted text-center my-3">No data available</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 차트 영역 -->
+    <div class="row">
+        <!-- OS 분포 차트 -->
+        <div class="col-sm-4">
+            <div class="card glass-card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie me-1"></i>
+                    OS Distribution
+                </div>
+                <div class="card-body text-center">
+                    {% if os_chart %}
+                    <img src="data:image/png;base64,{{ os_chart }}" class="img-fluid" alt="OS Distribution Chart">
+                    {% else %}
+                    <p class="text-muted my-5">No OS distribution data available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- 메모리 상위 서버 차트 -->
+        <div class="col-sm-4">
+            <div class="card glass-card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-chart-bar me-1"></i>
+                    Top Memory Servers (GB)
+                </div>
+                <div class="card-body text-center">
+                    {% if memory_chart %}
+                    <img src="data:image/png;base64,{{ memory_chart }}" class="img-fluid" alt="Top Memory Servers Chart">
+                    {% else %}
+                    <p class="text-muted my-5">No memory data available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- 디스크 상위 서버 차트 -->
+        <div class="col-sm-4">
+            <div class="card glass-card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-hdd me-1"></i>
+                    Top Disk Servers (GB)
+                </div>
+                <div class="card-body text-center">
+                    {% if disk_chart %}
+                    <img src="data:image/png;base64,{{ disk_chart }}" class="img-fluid" alt="Top Disk Servers Chart">
+                    {% else %}
+                    <p class="text-muted my-5">No disk data available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

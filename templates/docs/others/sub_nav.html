@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/docs-style.css' %}">
+
+<div class="mb-4">
+    <ul class="nav nav-tabs">
+        <li class="docs-nav-home">ETC</li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'docs-linux' %}active fw-bold{% endif %}" href="{% url 'docs-linux' %}">Linux</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'docs-basic-settings' %}active fw-bold{% endif %}" href="{% url 'docs-basic-settings' %}">Settings</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'docs-html-css' %}active fw-bold{% endif %}" href="{% url 'docs-html-css' %}">HTML/CSS</a>
+        </li>
+    </ul>
+</div>
+

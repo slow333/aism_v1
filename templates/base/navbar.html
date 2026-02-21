@@ -1,0 +1,115 @@
+<style>
+  .navbar-custom {
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+  }
+</style>
+
+<nav
+  class="navbar fixed-top navbar-light shadow-sm py-0 mb-0 navbar-custom navbar-expand"
+>
+  <div class="container-fluid">
+    <div class="d-flex align-items-center">
+      <button
+        class="btn btn-link text-dark p-0 me-3"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#sidebarCol"
+        aria-controls="sidebarCol"
+      >
+        <i class="bi bi-list fs-3"></i>
+      </button>
+      <a class="navbar-brand me-4" href="{% url 'main-index' %}">
+        <i class="bi bi-house-heart-fill text-primary fs-4"></i>
+      </a>
+    </div>
+
+    <button
+      class="navbar-toggler border-0"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarToggle"
+      aria-controls="navbarToggle"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse flex-wrap" id="navbarToggle">
+      <ul class="navbar-nav me-auto mb-0 fw-medium flex-wrap">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle px-3 {% if '/docs/' in request.path %} active text-primary {% endif %}"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            >Docs</a
+          >
+          <ul class="dropdown-menu shadow border-0 rounded-3">
+            <li> <a class="dropdown-item" href="{% url 'docs-contents' %}">Docs Main</a></li>
+            <li><hr class="dropdown-divider bg-white" /></li>
+            <li><a class="dropdown-item" href="{% url 'ai-python' %}">AI</a></li>
+            <li><a class="dropdown-item" href="{% url 'django-tips' %}">Django</a></li>
+            <li><a class="dropdown-item" href="/docs/psql/datatype">PSQL</a></li>
+            <li><a class="dropdown-item" href="/docs/python/datatype">Python</a></li>
+            <li><a class="dropdown-item" href="/docs/others/basic-settings">Others</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 {% if '/asct/' in request.path %} active text-primary {% endif %}"
+            href="{% url 'asct:index' %}" >ASCT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 {% if '/notes/' in request.path %} active text-primary {% endif %}"
+            href="{% url 'notes:notes-list' %}" >Notes</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+            {% if user.is_authenticated %}
+            <img
+              src="{{ user.profile.image.url }}"
+              class="rounded-circle me-2 border object-fit-cover"
+              width="32" height="32" alt="" />
+            <span class="fw-medium">{{ user.username }}</span>
+            {% else %}
+            <span class="fw-bold text-secondary">Guest</span>
+            {% endif %}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 mt-2" >
+            {% if user.is_authenticated %}
+            <li>
+              <a class="dropdown-item" href="{% url 'users:edit-profile' %}" > <i class="bi bi-person me-2"></i> Profile</a>
+            </li>
+            <li>
+              <form method="post" action="{% url 'users:logout' %}">
+                {% csrf_token %}
+                <button class="dropdown-item text-danger" type="submit">
+                  <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </button>
+              </form>
+            </li>
+            {% else %}
+            <li> <a class="dropdown-item" href="{% url 'users:login' %}" >
+              <i class="bi bi-box-arrow-in-right me-2"></i> Login</a>
+            </li>
+            <li> <a class="dropdown-item" href="{% url 'users:register' %}" >
+              <i class="bi bi-person-plus"></i> Register</a>
+            </li>
+            {% endif %} {% if user.is_staff %}
+            <li><hr class="dropdown-divider" /></li>
+            <li> <a class="dropdown-item" href="/admin" >
+              <i class="bi bi-shield-lock me-2"></i> Admin</a>
+            </li>
+            {% endif %}
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,33 @@
+{% extends 'base/base.html' %}
+{% block title %} Update Note - {{ note.title }} {% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h1 class="fw-bold text-primary"><i class="bi bi-pencil-square me-2"></i>Update Note</h1>
+</div>
+
+{% include 'notes/_nav.html' %}
+
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card border-0 shadow-sm glass-card mb-4">
+            <div class="card-body p-5">
+                <h4 class="card-title fw-bold mb-4 text-secondary">Edit Note Details</h4>
+                
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-flex justify-content-end gap-2 mt-5">
+                        <a href="{% url 'notes:note-detail' note.id %}" class="btn btn-glass-secondary rounded-pill px-4">
+                            <i class="bi bi-x-lg me-2"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-glass-primary rounded-pill px-4">
+                            <i class="bi bi-check-lg me-2"></i>Update Note
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

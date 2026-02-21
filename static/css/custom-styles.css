@@ -1,0 +1,60 @@
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.flex-start {
+    display: flex;
+    justify-content: start;
+    align-items: baseline;
+}
+.flex-end {
+    display: flex;
+    justify-content: end;
+    align-items: baseline;
+}
+
+.h-31px {
+    height: 31px !important; /* Bootstrap의 기본 스타일을 덮어써야 할 경우 !important를 사용합니다. */
+}
+
+.hero-gradient {
+    background: linear-gradient(to right, #5a6b8f, #4d588a, #3e45a7);
+    opacity: 0.6;
+}
+.bi-bg {
+    font-size: 6rem; opacity: 0.25;
+    margin-bottom: 1rem;
+}
+.nav_custom {
+    background-color: rgba(255, 255, 255, 0.45); 
+    backdrop-filter: blur(12px); 
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 0 !important;
+    position: relative;
+    margin-bottom: 1rem;
+    color: #333333;
+    width: 100% !important;
+}
+.filter-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* .nav-tabs .nav-link {
+    color: rgb(46, 46, 46);
+} */
+.navbar .navbar-nav .nav-item ul {
+    color: rgb(46, 46, 46);
+    background-color: white;
+}
+/* .navbar .navbar-nav .nav-item li a {
+    color: rgb(46, 46, 46);
+} */
+.navbar .navbar-nav .nav-item li a:hover {
+    color: rgb(245, 129, 129);
+}
+.navbar .navbar-nav .nav-item .nav-link {
+    color: rgba(46, 46, 46, 0.5);
+}

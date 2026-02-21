@@ -1,0 +1,112 @@
+{% extends 'docs/base_docs.html' %}
+
+{% block title %} About Python AI {% endblock %}
+
+{% block doc_content %}
+{% include 'docs/ai/sub_nav.html' %}
+<h1 class="doc-title">ABOUT Python AI</h1>
+<section class="doc-section">
+    <h2 class="doc-header">기본 설치할 것</h2>
+    <h3 class="doc-subheader">numpy, pandas, matplotlib, openai, requests, beautifulsoup4</h3>
+</section>
+<section class="doc-section">
+    <h2 class="doc-header">vs code에서 jupyter note 실행하기</h2>
+    <h3 class="doc-subheader">Django 프로젝트 연동</h3>
+    <p>현재 작업 중인 Django 프로젝트(AISM_v1)의 데이터베이스나 모델을 노트북에서 바로 사용하려면, 노트북의 첫 번째 셀에 아래 코드를 실행하여 Django 환경을 로드해야 합니다.</p>
+<pre><code class="language-python">import os, sys, django
+
+# 1. 프로젝트 루트 디렉토리 경로 설정
+# 'b:\AISM_v1' 경로를 Python 라이브러리 검색 경로에 추가합니다.
+# (노트북 파일 위치와 상관없이 절대 경로를 사용하는 것이 가장 확실합니다)
+PROJECT_PATH = r'b:\AISM_v1'
+
+if PROJECT_PATH not in sys.path:
+    sys.path.insert(0, PROJECT_PATH)
+
+# 2. Django 설정 모듈 지정 ('config.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+
+# 3. Jupyter(비동기 환경)에서 Django ORM 사용 허용
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+
+# 4. Django 초기화 (앱 로딩)
+django.setup()
+
+# 5. 모델 임포트 테스트
+from asct.models import ServerInfo, SSHInfo
+
+print(SSHInfo.objects.all())
+    </code></pre>
+</section>
+<section class="doc-section">
+    <h3 class="doc-subheader">Numpy</h3>
+<pre><code class="language-python">import numpy as np
+darray = np.array([[1,2,3], [5,6,7]])
+print(darray, darray.shape, darray.ndim)
+    </code></pre> 
+    <h3 class="doc-subheader">Pandas</h3>
+<pre><code class="language-python">import pandas as pd
+df = pd.read_csv('path/to/file.csv', engine="openpyxl")
+df = pd.read_excel('testfile/server_info_list.xlsx', 
+    sheet_name="Server Info", engine="openpyxl")
+print(df.head)
+clean_df = df.drop(columns=['Confirmed','Comment'])
+print(clean_df.iloc[0:11])
+    </code></pre>
+</section>
+<section class="doc-section">
+    <h3 class="doc-subheader">Sample</h3>
+<pre><code class="language-python">from pprint import pprint
+import pandas as pd
+import requests
+import matplotlib.pyplot as plt
+from pathlib import Path
+
+# api call
+latitude = 48.85
+longitude = 2.35
+from datetime import datetime, timedelta
+today = datetime.now()
+td_week = timedelta(days=7)
+week_ago = today - td_week
+start=week_ago.strftime('%Y-%m-%d')
+end=today.strftime('%Y-%m-%d')
+
+url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&start_date={start}&end_date={end}&daily=temperature_2m_max,temperature_2m_min"
+
+response = requests.get(url)
+data = response.json()
+daily_data = data['daily']
+
+# data frame: Pandas
+df = pd.DataFrame({
+    'date': daily_data['time'],
+    'max': daily_data['temperature_2m_max'],
+    'min': daily_data['temperature_2m_min']})
+df['date'] = pd.to_datetime(df['date'])
+df['avg'] = (df['max'] + df['min']) / 2
+
+output_path_csv = Path('../static/csv/weather.csv')
+output_path_csv.parent.mkdir(parents=True, exist_ok=True)
+df.to_csv(output_path_csv)
+
+# graphic : Matplotlib
+plt.figure(figsize=(10, 6))
+plt.plot(df['date'], df['max'],'r-o', label='Max Temp')
+plt.plot(df['date'], df['min'], 'b-o', label='Min Temp')
+plt.plot(df['date'], df['avg'], 'g--', label='Average Temp')
+plt.title("일주일간 온도 변화")
+plt.xlabel("Temperature (°C)")
+plt.ylabel('온도')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+output_path_img = Path('../static/images/my_plot.png')
+output_path_img.parent.mkdir(parents=True, exist_ok=True)
+plt.savefig(output_path_img)
+plt.show()
+</code></pre>
+</section>
+{% endblock %}

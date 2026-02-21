@@ -1,0 +1,20 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/docs-style.css' %}">
+
+<div class="mb-3 mt-0">
+    <ul class="nav nav-tabs">
+        <li class="docs-nav-home">AI</li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active fw-bold{% endif %}" href="{% url 'ai-python' %}">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'numpy' %}active fw-bold{% endif %}" href="{% url 'ai-numpy' %}">Numpy</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'matplot' %}active fw-bold{% endif %}" href="{% url 'ai-matplot' %}">Matplot</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'pandas' %}active fw-bold{% endif %}" href="{% url 'ai-pandas' %}">Pandas</a>
+        </li>
+    </ul>
+</div>
