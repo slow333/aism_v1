@@ -1,0 +1,22 @@
+{% load static %}
+<!-- PrismJS CSS (Syntax Highlighting) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+<!-- PrismJS Toolbar CSS (Required for Copy Button) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+<nav class="navbar navbar-expand navbar-light mb-3 rounded-3 shadow-sm p-2 position-relative z-3 nav_custom">
+    <div class="container-fluid">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-wrap">
+            <li class='nav-item'><a class="nav-link {% if '/ai/index' in request.path %} active text-primary {% endif %}" href="{% url 'ai:index' %}">AI |</a></li>
+            <li class='nav-item'><a class="nav-link {% if '/numpy/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:numpy' %}">Numpy |</a></li>
+            <li class='nav-item'><a class="nav-link {% if '/scikit-learn/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:scikit-learn' %}">scikit-learn |</a></li>
+            <li class='nav-item'><a class="nav-link {% if '/linear-regression/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:linear-regression' %}">linear-regression |</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- PrismJS JS & Autoloader -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<!-- PrismJS Toolbar & Copy to Clipboard Plugins -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>

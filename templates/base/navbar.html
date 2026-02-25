@@ -50,7 +50,6 @@
           <ul class="dropdown-menu shadow border-0 rounded-3">
             <li> <a class="dropdown-item" href="{% url 'docs-contents' %}">Docs Main</a></li>
             <li><hr class="dropdown-divider bg-white" /></li>
-            <li><a class="dropdown-item" href="{% url 'ai-python' %}">AI</a></li>
             <li><a class="dropdown-item" href="{% url 'django-tips' %}">Django</a></li>
             <li><a class="dropdown-item" href="/docs/psql/datatype">PSQL</a></li>
             <li><a class="dropdown-item" href="/docs/python/datatype">Python</a></li>
@@ -58,12 +57,13 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3 {% if '/asct/' in request.path %} active text-primary {% endif %}"
-            href="{% url 'asct:index' %}" >ASCT</a>
+          <a class="nav-link px-3 {% if '/ai/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:index' %}" >AI</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3 {% if '/notes/' in request.path %} active text-primary {% endif %}"
-            href="{% url 'notes:notes-list' %}" >Notes</a>
+          <a class="nav-link px-3 {% if '/asct/' in request.path %} active text-primary {% endif %}" href="{% url 'asct:index' %}" >ASCT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 {% if '/notes/' in request.path %} active text-primary {% endif %}" href="{% url 'notes:notes-list' %}" >Notes</a>
         </li>
       </ul>
 

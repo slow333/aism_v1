@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "users",
     "docs",
     "notes",
+    "ai",
     # Third-party apps
     "debug_toolbar",
     "django.contrib.sites",

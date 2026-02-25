@@ -1,46 +1,185 @@
 from django.urls import path
-from . import views
+from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('', views.contents, name='docs-contents'),
-    
-    path('ai/about', views.ai_python, name='ai-python'),
-    path('ai/numpy', views.ai_numpy, name='ai-numpy'),
-    path('ai/matplot', views.ai_matplot, name='ai-matplot'),
-    path('ai/pandas', views.ai_pandas, name='ai-pandas'),
-    
-    path('django/project-intro', views.project_intro, name='project-intro'),
-    path('django/setup', views.django_setup, name='django-setup'),
-    path('django/orm', views.django_orm, name='django-orm'),
-    path('django/model', views.django_model, name='django-model'),
-    path('django/regexp', views.django_regexp, name='django-regexp'),
-    path('django/datetime', views.django_datetime, name='django-datetime'),
-    path('django/django-tips', views.django_django_tips, name='django-tips'),
-    path('django/celery', views.django_celery, name='django-celery'),
-    path('django/log-rotate/', views.log_rotate, name='log-rotate'),
-
-    path('psql/note', views.psql_note, name='docs-psql-note'),
-    path('psql/datatype', views.psql_datatype, name='docs-psql-datatype'),
-    path('psql/crud', views.psql_crud, name='docs-psql-crud'),
-    path('psql/select', views.psql_select, name='docs-psql-select'),
-    path('psql/constraints', views.psql_constraints, name='docs-psql-constraints'),
-    path('psql/groupby', views.psql_groupby, name='docs-psql-groupby'),
-    path('psql/join', views.psql_join, name='docs-psql-join'),
-    path('psql/aggregate', views.psql_aggregate, name='docs-psql-aggregate'),
-    path('psql/functions', views.psql_functions, name='docs-psql-functions'),
-    path('psql/procedure-trigger', views.psql_procedure_trigger, name='docs-psql-procedure-trigger'),
-
-    path('python/datatype', views.python_datatype, name='docs-python-datatype'),
-    path('python/print-format', views.python_print_format, name='docs-python-print-format'),
-    path('python/loop', views.python_loop, name='docs-python-loop'),
-    path('python/def-file', views.python_def_file, name='docs-python-def-file'),
-    path('python/class-module', views.python_class_module, name='docs-python-class-module'),
-    path('python/try-except', views.python_try_except, name='docs-python-try-except'),
-    path('python/py-library', views.python_py_library, name='docs-python-py-library'),
-    path('python/decorator', views.python_decorator, name='docs-python-decorator'),
-    path('python/regexp', views.python_regexp, name='docs-python-regexp'),
-
-    path('others/linux', views.linux, name='docs-linux'),
-    path('others/basic-settings', views.basic_settings, name='docs-basic-settings'),
-    path('others/html-css', views.html_css, name='docs-html-css'),
+    path(
+        "",
+        TemplateView.as_view(template_name="docs/contents.html"),
+        name="docs-contents",
+    ),
+    path(
+        "ai/about",
+        TemplateView.as_view(template_name="docs/ai/ai_python.html"),
+        name="ai-python",
+    ),
+    path(
+        "ai/numpy",
+        TemplateView.as_view(template_name="docs/ai/numpy.html"),
+        name="ai-numpy",
+    ),
+    path(
+        "ai/matplot",
+        TemplateView.as_view(template_name="docs/ai/matplot.html"),
+        name="ai-matplot",
+    ),
+    path(
+        "ai/pandas",
+        TemplateView.as_view(template_name="docs/ai/pandas.html"),
+        name="ai-pandas",
+    ),
+    path(
+        "django/project-intro",
+        TemplateView.as_view(template_name="docs/django/project-intro.html"),
+        name="project-intro",
+    ),
+    path(
+        "django/setup",
+        TemplateView.as_view(template_name="docs/django/setup.html"),
+        name="django-setup",
+    ),
+    path(
+        "django/orm",
+        TemplateView.as_view(template_name="docs/django/django-orm.html"),
+        name="django-orm",
+    ),
+    path(
+        "django/model",
+        TemplateView.as_view(template_name="docs/django/about-models.html"),
+        name="django-model",
+    ),
+    path(
+        "django/regexp",
+        TemplateView.as_view(template_name="docs/django/regexp.html"),
+        name="django-regexp",
+    ),
+    path(
+        "django/datetime",
+        TemplateView.as_view(template_name="docs/django/datetime.html"),
+        name="django-datetime",
+    ),
+    path(
+        "django/django-tips",
+        TemplateView.as_view(template_name="docs/django/django-tips.html"),
+        name="django-tips",
+    ),
+    path(
+        "django/celery",
+        TemplateView.as_view(template_name="docs/django/celery_beat_setup.html"),
+        name="django-celery",
+    ),
+    path(
+        "django/log-rotate/",
+        TemplateView.as_view(template_name="docs/django/log_rotate.html"),
+        name="log-rotate",
+    ),
+    path(
+        "psql/note",
+        TemplateView.as_view(template_name="docs/postgresql/00-psql-note.html"),
+        name="docs-psql-note",
+    ),
+    path(
+        "psql/datatype",
+        TemplateView.as_view(template_name="docs/postgresql/01-datatype.html"),
+        name="docs-psql-datatype",
+    ),
+    path(
+        "psql/crud",
+        TemplateView.as_view(template_name="docs/postgresql/02-crud.html"),
+        name="docs-psql-crud",
+    ),
+    path(
+        "psql/select",
+        TemplateView.as_view(template_name="docs/postgresql/03-select.html"),
+        name="docs-psql-select",
+    ),
+    path(
+        "psql/constraints",
+        TemplateView.as_view(template_name="docs/postgresql/04-constraints.html"),
+        name="docs-psql-constraints",
+    ),
+    path(
+        "psql/groupby",
+        TemplateView.as_view(template_name="docs/postgresql/05-groupby.html"),
+        name="docs-psql-groupby",
+    ),
+    path(
+        "psql/join",
+        TemplateView.as_view(template_name="docs/postgresql/06-join.html"),
+        name="docs-psql-join",
+    ),
+    path(
+        "psql/aggregate",
+        TemplateView.as_view(template_name="docs/postgresql/07-aggregate.html"),
+        name="docs-psql-aggregate",
+    ),
+    path(
+        "psql/functions",
+        TemplateView.as_view(template_name="docs/postgresql/08-functions.html"),
+        name="docs-psql-functions",
+    ),
+    path(
+        "psql/procedure-trigger",
+        TemplateView.as_view(template_name="docs/postgresql/09-procedure-trigger.html"),
+        name="docs-psql-procedure-trigger",
+    ),
+    path(
+        "python/datatype",
+        TemplateView.as_view(template_name="docs/python/01_datatype.html"),
+        name="docs-python-datatype",
+    ),
+    path(
+        "python/print-format",
+        TemplateView.as_view(template_name="docs/python/02_print_format.html"),
+        name="docs-python-print-format",
+    ),
+    path(
+        "python/loop",
+        TemplateView.as_view(template_name="docs/python/03_loop.html"),
+        name="docs-python-loop",
+    ),
+    path(
+        "python/def-file",
+        TemplateView.as_view(template_name="docs/python/04_def_file.html"),
+        name="docs-python-def-file",
+    ),
+    path(
+        "python/class-module",
+        TemplateView.as_view(template_name="docs/python/05_class_module.html"),
+        name="docs-python-class-module",
+    ),
+    path(
+        "python/try-except",
+        TemplateView.as_view(template_name="docs/python/06_try_except.html"),
+        name="docs-python-try-except",
+    ),
+    path(
+        "python/py-library",
+        TemplateView.as_view(template_name="docs/python/07_py_library.html"),
+        name="docs-python-py-library",
+    ),
+    path(
+        "python/decorator",
+        TemplateView.as_view(template_name="docs/python/08_closer_decorator.html"),
+        name="docs-python-decorator",
+    ),
+    path(
+        "python/regexp",
+        TemplateView.as_view(template_name="docs/python/09_regexp.html"),
+        name="docs-python-regexp",
+    ),
+    path(
+        "others/linux",
+        TemplateView.as_view(template_name="docs/others/linux.html"),
+        name="docs-linux",
+    ),
+    path(
+        "others/basic-settings",
+        TemplateView.as_view(template_name="docs/others/basic-settings.html"),
+        name="docs-basic-settings",
+    ),
+    path(
+        "others/html-css",
+        TemplateView.as_view(template_name="docs/others/html_css.html"),
+        name="docs-html-css",
+    ),
 ]

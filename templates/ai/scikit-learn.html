@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} Scikit-learn - AI {% endblock %}
+
+{% block content %}
+{% include 'ai/_nav.html' %}
+<div class="container mt-4">
+    <div class="text-center mb-2">
+        <h1 class="display-4">Scikit-learn</h1>
+        <p class="lead text-white">Python을 위한 강력한 머신러닝 라이브러리</p>
+    </div>
+
+    <!-- ML Pipeline Tasks -->
+    <div class="glass-card rounded-2 shadow-sm p-4 mb-4">
+        <h3 class="border-bottom pb-2 mb-3">ML Pipeline Tasks</h3>
+        <div class="flex-center gap-2 text-center">
+            <span class="badge bg-primary p-2">Data Collection</span> &rarr;
+            <span class="badge bg-primary p-2">Data Preprocessing</span> &rarr;
+            <span class="badge bg-primary p-2">Model Training (Split)</span> &rarr;
+            <span class="badge bg-primary p-2">Model Setup & Fitting</span> &rarr;
+            <span class="badge bg-info p-2">Hyperparameter Tuning</span> &rarr;
+            <span class="badge bg-success p-2">Prediction</span> &rarr;
+            <span class="badge bg-success p-2">Evaluation</span> &rarr;
+            <span class="badge bg-warning text-dark p-2">Export Model</span> &rarr;
+            <span class="badge bg-secondary p-2">Monitoring</span>
+        </div>
+    </div>
+
+    <div class="glass-card rounded-2 shadow-sm p-4 mb-3">
+        <h3>Scikit-learn 특징</h3>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-transparent"><i class="bi bi-check-circle me-2 text-success"></i>Free ML library for Python</li>
+            <li class="list-group-item bg-transparent"><i class="bi bi-check-circle me-2 text-success"></i>Classification, regression, clustering, dimensionality reduction algorithms</li>
+            <li class="list-group-item bg-transparent"><i class="bi bi-check-circle me-2 text-success"></i>Designed to work with Numpy SciPy</li>
+            <li class="list-group-item bg-transparent"><i class="bi bi-check-circle me-2 text-success"></i>Excellent documentation community support</li>
+            <li class="list-group-item bg-transparent"><i class="bi bi-check-circle me-2 text-success"></i>Constantly evolving</li>
+            <li class="list-group-item bg-transparent"><i class="bi bi-check-circle me-2 text-success"></i>Enables easy implementation of ML models</li>
+        </ul>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm p-4">
+        <h3>Scikit-learn Workflow</h3>
+        <p class="text-muted">Given: Data set X and target variable y as NumPy arrays</p>
+        
+        <h6 class="mt-3 text-primary">1. Preprocessing</h6>
+        <pre><code class="language-python">from sklearn import preprocessing
+X = preprocessing.StandardScaler().fit(X).transform(X)
+
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)</code></pre>
+
+        <h6 class="mt-3 text-primary">2. Model Training & Prediction</h6>
+        <pre><code class="language-python">from sklearn import svm
+clf = svm.SVC(gamma=0.001, C=100.)
+clf.fit(X_train, y_train)
+yhat = clf.predict(X_test)</code></pre>
+
+        <h6 class="mt-3 text-primary">3. Evaluation</h6>
+        <pre><code class="language-python">from sklearn.metrics import confusion_matrix
+print(confusion_matrix(y_test, yhat, labels=[1,0]))</code></pre>
+
+        <h6 class="mt-3 text-primary">4. Export</h6>
+        <pre><code class="language-python">import pickle
+s = pickle.dumps(clf)</code></pre>
+    </div>
+</div>
+{% endblock %}

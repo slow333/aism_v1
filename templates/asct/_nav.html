@@ -16,19 +16,19 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 접속정보 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'asct:sshinfo_list' %}">SSH 정보</a></li>
-                    <li><a class="dropdown-item" href="{% url 'asct:cmd_list' %}">Command</a></li>
-                    <li><a class="dropdown-item" href="{% url 'asct:cmd_select' %}">CMD로 정보 수집</a></li>
+                    <li><a class="dropdown-item {% if '/sshinfo/list/' in request.path %} active text-white {% endif %}" href="{% url 'asct:sshinfo_list' %}">SSH 정보</a></li>
+                    <li><a class="dropdown-item  {% if '/command/list/' in request.path %} active text-white {% endif %}" href="{% url 'asct:cmd_list' %}">Command</a></li>
+                    <li><a class="dropdown-item  {% if '/command/select/' in request.path %} active text-white {% endif %}" href="{% url 'asct:cmd_select' %}">CMD로 정보 수집</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 자원정보 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'asct:serverinfo_list' %}">Server 정보</a></li>
-                    <li><a class="dropdown-item" href="{% url 'asct:cpu_usage_list' %}">CPU 사용량</a></li>
-                    <li><a class="dropdown-item" href="{% url 'asct:memory_usage_list' %}">Memory 사용량</a></li>
-                    <li><a class="dropdown-item" href="{% url 'asct:traffic_usage_list' %}">Traffic 사용량</a></li>
-                    <li><a class="dropdown-item" href="{% url 'asct:disk_usage_list' %}">Disck 사용량</a></li>
+                    <li><a class="dropdown-item {% if '/svinfo/list/' in request.path %} active text-white {% endif %}" href="{% url 'asct:serverinfo_list' %}">SSH 정보</a></li>
+                    <li><a class="dropdown-item {% if '/cpu_usage/list/' in request.path %} active text-white {% endif %}" href="{% url 'asct:cpu_usage_list' %}">CPU 사용량</a></li>
+                    <li><a class="dropdown-item {% if '/memory_usage/list/' in request.path %} active text-white {% endif %}" href="{% url 'asct:memory_usage_list' %}">Memory 사용량</a></li>
+                    <li><a class="dropdown-item {% if '/traffic_usage/list/' in request.path %} active text-white {% endif %}" href="{% url 'asct:traffic_usage_list' %}">Traffic 사용량</a></li>
+                    <li><a class="dropdown-item {% if '/disk_usage/list/' in request.path %} active text-white {% endif %}" href="{% url 'asct:disk_usage_list' %}">Disck 사용량</a></li>
                     {% comment %}
                     <li><a class="dropdown-item" href="{% url 'asct:cpu_usage_select' %}">CPU 사용량 수집</a></li>
                     <li><a class="dropdown-item" href="{% url 'asct:memory_usage_select' %}">Memory 사용량 수집</a></li>

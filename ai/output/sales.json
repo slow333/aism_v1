@@ -54,5 +54,12 @@
     "quantity":2,
     "price":299.99,
     "total":599.98
+  },
+  {
+    "date":"2025-01-05",
+    "product":"Phone",
+    "quantity":2,
+    "price":499.32,
+    "total":998.64
   }
 ]

@@ -20,8 +20,8 @@ done
 if [ -d "$SA_DIR" ]; then
     echo "hostname,IP,Date,IFACE,Speed,rxkB/s,txkB/s" > "$OUTPUT_FILE"
     for file in $(ls $SA_DIR/sa[0-9][0-9] 2>/dev/null | sort); do
-        # 헤더(#으로 시작) 제외하고 추가
-        sadf -d "$file" -- -n DEV | grep -v '^#' | awk -F';' -v ip="$IP_ADDR" -v speed_map="$SPEED_MAP" '
+        # 헤더(#으로 시작) 제외하고 추가(-t를 해야 로컬 시간, 없으면 자동으로 -9 시간 함)
+        sadf -d -t "$file" -- -n DEV | grep -v '^#' | awk -F';' -v ip="$IP_ADDR" -v speed_map="$SPEED_MAP" '
         BEGIN {
             OFS=","
             split(speed_map, arr, ",")

@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} Home - AI {% endblock %}
+
+{% block content %}
+{% include 'ai/_nav.html' %}
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-4">AI/ML 기술 스택</h1>
+        <p class="lead text-white">다양한 인공지능 및 머신러닝 분야에서 활용되는 주요 도구와 기술들입니다.</p>
+    </div>
+
+    <div class="glass-card rounded-2 shadow-sm p-4 mb-4">
+        <h3 class="border-bottom">AI 분야별 주요 기술</h3>
+        <hr class="p-0 m-0">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Data processing and analytics</h5>
+                <p class="text-secondary">PostgreSQL, Hadoop, Spark, Apache Kafka, pandas, Numpy</p>
+                <h5>Data visualization</h5>
+                <p class="text-secondary">Matplotlib, Seaborn, ggplot2, Tableau</p>
+                <h5>Machine learning</h5>
+                <p class="text-secondary">Numpy, Pandas, SciPy, scikit-learn</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Deep learning</h5>
+                <p class="text-secondary">TensorFlow, Keras, Theano, PyTorch</p>
+                <h5>Computer vision</h5>
+                <p class="text-secondary">OpenCV, scikit-image, TorchVision</p>
+                <h5>NLP & Generative AI</h5>
+                <p class="text-secondary">NLTK, Stanza, Hugging face transformers, ChatGPT, DALL-E</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="glass-card rounded-2 shadow-sm p-4 h-100">
+                <h3>머신러닝 (Machine Learning)</h3>
+                <p class="text-muted">모델 생성 및 튜닝을 위한 핵심 도구</p>
+                <ul>
+                    <li><strong>Numpy:</strong> 데이터 배열에 대한 수치 연산</li>
+                    <li><strong>Pandas:</strong> 데이터 분석, 시각화, 정제 및 준비</li>
+                    <li><strong>SciPy:</strong> 최적화, 통합 및 선형 회귀를 위한 컴퓨팅</li>
+                    <li><strong>Scikit-learn:</strong> 분류, 회귀, 클러스터링 및 차원 축소</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="glass-card rounded-2 shadow-sm p-4 h-100">
+                <h3>딥러닝 (Deep Learning)</h3>
+                <p class="text-muted">신경망 기반 모델 설계, 훈련 및 테스트</p>
+                <ul>
+                    <li><strong>TensorFlow:</strong> 수치 컴퓨팅 및 대규모 머신러닝</li>
+                    <li><strong>Keras:</strong> 신경망 구현을 위한 고수준 API</li>
+                    <li><strong>PyTorch:</strong> 컴퓨터 비전, NLP 및 유연한 연구 환경</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="glass-card rounded-2 shadow-sm p-4 h-100">
+                <h3>자연어 처리 (NLP)</h3>
+                <p class="text-muted">인간의 언어를 이해하고 생성하는 애플리케이션 구축</p>
+                <ul>
+                    <li><strong>NLTK:</strong> 텍스트 처리, 토큰화 및 형태소 분석</li>
+                    <li><strong>TextBlob:</strong> 품사 태깅, 명사구 추출, 감성 분석 및 번역</li>
+                    <li><strong>Stanza:</strong> 품사 태깅, 개체명 인식 등을 위한 사전 훈련된 모델</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="glass-card rounded-2 shadow-sm p-4 h-100">
+                <h3>생성형 AI (Generative AI)</h3>
+                <p class="text-muted">입력 데이터를 기반으로 새로운 콘텐츠를 생성</p>
+                <ul>
+                    <li><strong>Hugging Face Transformers:</strong> 텍스트 생성, 언어 번역, 감성 분석</li>
+                    <li><strong>ChatGPT:</strong> 텍스트 생성, 챗봇 구축 등</li>
+                    <li><strong>DALL-E:</strong> 텍스트 설명에서 이미지 생성</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

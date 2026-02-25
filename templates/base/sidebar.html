@@ -13,6 +13,8 @@
 
         <div class="collapse {% if '/blog/' in request.path or '/asct/' in request.path or '/notes/' in request.path %} show {% endif %}" id="sidebar-apps">
             <div class="mt-1">
+                <a class="sidebar-link {% is_active '/ai/' %}" href="{% url 'ai:index' %}">
+                    <i class="bi bi-gear-wide-connected sidebar-icon"></i> AI</a>
                 <a class="sidebar-link {% is_active '/asct/' %}" href="{% url 'asct:index' %}">
                     <i class="bi bi-gear-wide-connected sidebar-icon"></i> ASCT</a>
                 <a class="sidebar-link {% is_active '/notes/' %}" href="{% url 'notes:notes-list' %}">

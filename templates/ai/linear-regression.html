@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} Linear regression {% endblock %}
+
+{% block content %}
+{% include 'ai/_nav.html' %}
+<div class="container mt-4">
+    <div class="text-center mb-2">
+        <h1 class="display-4">Linear regression</h1>
+        <p class="lead text-white">Supervised learning</p>
+        
+    </div>
+    
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">Regression algorithms</h3>
+        <ul>
+            <li>Linear and polynomial</li>
+            <li>Random forest</li>
+            <li>Extreme Gradient Boosting(XGBoost)</li>
+            <li>K-nearest neighbors(KNN)</li>
+            <li>Support vector machines(SVM)</li>
+            <li>Neural network</li>
+        </ul>
+        <h3>사용 분야</h3>
+        <ul>
+            <li>Forecast sales: 세일즈 예측</li>
+            <li>Predict maintenance</li>
+            <li>Estimate rainfall</li>
+            <li>Predict the spread of infectious disease</li>
+        </ul>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">Simple Linear Regression</h3>
+        <p>Models linear relationsship between a contiruous target variable and explanary features</p>
+        <p>Can be used to predict a continuous value</p>
+        <div class="text-center mb-2">
+            <img src="{% static 'images/linear_regression2.png' %}" 
+            alt="Linear Regression" class="img-fluid rounded shadow-sm">
+        </div>
+    </div>
+</div>
+{% endblock %}

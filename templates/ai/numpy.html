@@ -1,0 +1,116 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %} Numpy {% endblock %}
+
+{% block content %}
+{% include 'ai/_nav.html' %}
+<div class="container mt-4">
+    <div class="text-center mb-2">
+        <h1 class="display-4">Numpy</h1>
+        <p class="lead text-white">다차원 배열을 효율적으로 처리하고 다양한 수학 함수를 제공하는 수치 계산 라이브(import numpy as np)</p>
+    </div>
+    
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">배열 생성</h3>
+        <p>np.array( )로 파이썬 리스트를 넘파이 배열로 변환하여 생성</p>
+        arr = np.array([1,2,3])
+        arr * 2 == [2,4,6]
+        arr3 = np.arange(1,19).reshape(3, 2, 3)
+        arr3 = np.array([
+            [[ 1,  2,  3], [ 4,  5,  6]],
+            [[ 7,  8,  9], [10, 11, 12]],
+            [[13, 14, 15], [16, 17, 18]]
+        ])
+        ndarray.shape: 축 순서대로 크기
+        ndarray.ndim : 차원의 개수
+        ndarray.dtype : 배열 요소의 데이터 타입
+        ndarray.itemsize : 개별 데이터 요소의 크기(byte)
+        ndarray.size : 전채 요소의 개수
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">데이터 타입</h3>
+<pre>int8 : i1</pre>
+<pre>int16 : i2</pre>
+<pre>int32 : i4</pre>
+<pre>int64 : i8</pre>
+<pre>uint8 : u1</pre>
+<pre>uint16 : u2</pre>
+<pre>uint32 : u4</pre>
+<pre>uint64 : u8</pre>
+<pre>float16 : f2</pre>
+<pre>float32 : f4</pre>
+<pre>float64 : f8</pre>
+<pre>'&lt;U2' : 2 char</pre>
+        <h3 class="border-bottom mb-1">arange, linspace</h3>
+        <p>np.arange(start = 10, stop = 30, step = 5, dtype = int)</p>
+        <p>동인한 간격의 일정한 데이터 열 생성
+            np.linspace(start, stop, num, endpoint, retstep, dtype)
+            num : 배열 요소 개수입니다. 기본값은 50입니다. 
+endpoint : 종료값을 포함 여부를 나타내는 논리형 데이터 타입. 기본값은 True.</p>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">초기화 함수</h3>
+        <p>np.zeros((3,4)), np.ones((3,4)), np.empty((3,4))를 이용 초기화된 넘파 배열 생성</p>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">요소별 연산</h3>
+        <p>같은 인덱스의 배열 요소끼리 연산하는 기법</p>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">벡터화 연산</h3>
+        <p>배열의 모든 요소에 대해 루프 없이 한 번에 연산하는 기법(기본)</p>
+<pre>
+a=np.array([[1,2],[5,3]])
+b=np.array([[0,1],[1,0]])
+print(a@b)
+[1,2] =>   [0,
+            1] : 1*0 + 2*1 => 2 
+[1,2] =>   [1,
+            0] : 1*1 + 2*0 => 1
+[[2 1]
+[3 5]]
+</pre>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">집계 함수</h3>
+        <p>배열의 합, 평균, 최댓값 등의 통계 정보를 얻기 위해 사용</p>
+<pre>arr.mean(axis=(1,2)), , arr.sum(axis=(0,1)),
+    arr.max(axis=1), arr.min(), 
+    arr.argmax(), arr.cumsum()</pre>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">인덱싱과 슬라이싱</h3>
+        <p>특정 요소를 선택하거나 배열의 부분 집합을 추출</p>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">논리형 인덱싱</h3>
+        <p>조건에 맞는 배열 요소만을 선택하는 방법</p>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">배열 변형</h3>
+        <p>reshape() : 원본 배열을 유지한 채 배열의 형태를 변경해 새로운 배열을 반환, resize() : 원본 배열을 직접 변경</p>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">배열의 합치기와 분할</h3>
+        <p>vstack()와 hstack() : 배열을 수직 및 수평으로 합치는 데 사용, vsplit()와 hsplit() : 배열을 수직 또는 수평으로 분할</p>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">axis의 이해</h3>
+<pre># 반, 학생, 성적
+scores = np.random.randint(30, 101, size=(3, 2, 4), dtype='int8')
+# 2번(성적)에 대한 계산을 하지 않함(제외)
+studen_mean = scores.mean(axis=2)
+# 0(반), 학생(1)에 대한 계산을 않함(제외)
+subject_mean = scores.mean(axis=(0,1))
+</pre>
+<pre>
+for cls in range(scores.shape[0]):
+    print(f'{cls + 1} 반')
+    for student in range(scores.shape[1]):
+        kor, eng, math, music = scores[cls][student]
+        average = scores[cls][student].sum() / (scores.shape[2])
+        print(f'{kor}, {eng}, {math}, {music}, avg : {average}')
+</pre>
+    </div>
+</div>
+{% endblock %}

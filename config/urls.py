@@ -5,24 +5,28 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='index.html'), name='main-index'),
-    path('users/', include('users.urls')),
-    path('users/', include('django.contrib.auth.urls')),
-    path('asct/', include('asct.urls')),
-    path('notes/', include('notes.urls')),
-    path('docs/', include('docs.urls')),
+    path("admin/", admin.site.urls),
+    path("", TemplateView.as_view(template_name="index.html"), name="main-index"),
+    path("users/", include("users.urls")),
+    path("users/", include("django.contrib.auth.urls")),
+    path("ai/", include("ai.urls")),
+    path("asct/", include("asct.urls")),
+    path("notes/", include("notes.urls")),
+    path("docs/", include("docs.urls")),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
+
     urlpatterns = [
-        path('__debug__/', include(debug_toolbar.urls)),
+        path("__debug__/", include(debug_toolbar.urls)),
     ] + urlpatterns
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
-admin.site.site_header = "AI System Management" # H1 헤더 및 로그인 양식 상단 텍스트
-admin.site.site_title = "Automated System Check Tool" # 브라우저 페이지 <title> 태그 접미사
-admin.site.index_title = "관리자 대시보드에 오신 것을 환영합니다" 
+admin.site.site_header = "AI System Management"  # H1 헤더 및 로그인 양식 상단 텍스트
+admin.site.site_title = (
+    "Automated System Check Tool"  # 브라우저 페이지 <title> 태그 접미사
+)
+admin.site.index_title = "관리자 대시보드에 오신 것을 환영합니다"
