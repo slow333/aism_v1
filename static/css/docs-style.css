@@ -3,15 +3,13 @@
     padding-bottom: 3rem; 
 }
 .doc-title { 
-    color: #c5dcff; 
-    border-bottom: 2px solid #e9ecef; 
-    padding-bottom: 5px; 
-    margin-bottom: 1rem; 
-    font-weight: 700; }
+    color: #474747; 
+    font-weight: 700;
+}
 
 .doc-header { 
-    color: #343a40; 
-    margin-top: 1.5rem; 
+    color: #333333; 
+    /* margin-top: 1.5rem;  */
     margin-bottom: 0.6rem; 
     font-weight: 600; 
     border-left: 5px solid #0d6efd; 
@@ -66,8 +64,7 @@
     border-radius: 0.25rem; 
 }
 .docs-nav-home {
-    color:aliceblue; 
-    background: #5052cc; 
+    color:rgb(38, 0, 252); 
     height:2rem; 
     margin:2px 12px 0 2px; 
     padding:6px;
@@ -76,31 +73,58 @@
 div ul.nav li.nav-item {
     padding: 0;
     margin:0;
+    background-color: aliceblue;
+
 }
 div ul.nav li.nav-item a.nav-link:hover {
     color: black;
 }
 div ul li a.nav-link {
-    color: white;
+    color: rgb(54, 54, 54);
     padding: 0;
+}
+/* .nav-link {
+    transition: all 0.2s ease-in-out;
+    border-radius: 0.5rem;
+}
+.nav-link:hover {
+    color: #0d6efd !important;
+    background-color: rgba(13, 110, 253, 0.08);
+} */
+.nav-tabs .nav-link {
+    text-align: center;
 }
 .nav-tabs .nav-link:hover {
     color: #f3ff8b !important;
     background-color: rgb(110, 78, 255);
     border: none;
+    /* margin-bottom: 0; */
+    /* padding-bottom: 8px; */
+    padding: 7px 11px 7px 11px;
 }
 .nav-tabs {
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 .nav-tabs .nav-link {
-    color: #adb5bd;
+    color: #3c3f42;
 }
 .nav-tabs .nav-link:hover {
     color: #0dcaf0;
     border-color: transparent;
 }
+
+/* Prevent layout shift on bold state for nav-tabs */
+.nav-tabs .nav-link::after {
+    display: block;
+    content: attr(data-text);
+    font-weight: 700;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
 .nav-tabs .nav-link.active {
-    color: #fff !important;
+    color: #3923ff !important;
     background-color: rgba(255, 255, 255, 0.1) !important;
     border-color: rgba(255, 255, 255, 0.2);
     border-bottom-color: transparent;

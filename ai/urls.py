@@ -6,9 +6,14 @@ app_name = "ai"
 urlpatterns = [
     path("index/", TemplateView.as_view(template_name="ai/index.html"), name="index"),
     path(
-        "numpy/",
-        TemplateView.as_view(template_name="ai/numpy.html"),
-        name="numpy",
+        "numpy_pandas/",
+        TemplateView.as_view(template_name="ai/numpy_pandas.html"),
+        name="numpy_pandas",
+    ),
+    path(
+        "matplotlib/",
+        TemplateView.as_view(template_name="ai/matplotlib.html"),
+        name="matplotlib",
     ),
     path(
         "scikit-learn/",

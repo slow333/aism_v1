@@ -1,11 +1,11 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block content %}
 <!-- PrismJS CSS (Syntax Highlighting) -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
 <!-- PrismJS Toolbar CSS (Required for Copy Button) -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
-
+<link rel="stylesheet" href="{% static 'css/docs-style.css' %}">
 <style>
     /* 문서 레이아웃: 좌측 TOC + 우측 본문 */
     .docs-layout {

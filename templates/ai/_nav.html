@@ -3,16 +3,16 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
 <!-- PrismJS Toolbar CSS (Required for Copy Button) -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
-<nav class="navbar navbar-expand navbar-light mb-3 rounded-3 shadow-sm p-2 position-relative z-3 nav_custom">
-    <div class="container-fluid">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-wrap">
-            <li class='nav-item'><a class="nav-link {% if '/ai/index' in request.path %} active text-primary {% endif %}" href="{% url 'ai:index' %}">AI |</a></li>
-            <li class='nav-item'><a class="nav-link {% if '/numpy/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:numpy' %}">Numpy |</a></li>
-            <li class='nav-item'><a class="nav-link {% if '/scikit-learn/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:scikit-learn' %}">scikit-learn |</a></li>
-            <li class='nav-item'><a class="nav-link {% if '/linear-regression/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:linear-regression' %}">linear-regression |</a></li>
-        </ul>
-    </div>
-</nav>
+<link rel="stylesheet" href="{% static 'css/docs-style.css' %}">
+<div class="d-flex justify-content-center">
+    <ul class="nav nav-tab mb-2 mb-lg-0 flex-wrap">
+        <li class='nav-item ps-3'><a class="nav-link {% if '/ai/index' in request.path %} active text-primary {% endif %}" href="{% url 'ai:index' %}">AI |</a></li>
+        <li class='nav-item'><a class="nav-link {% if '/numpy_pandas/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:numpy_pandas' %}">Numpy & Pandas |</a></li>
+        <li class='nav-item'><a class="nav-link {% if '/matplotlib/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:matplotlib' %}">Matplotlib |</a></li>
+        <li class='nav-item'><a class="nav-link {% if '/scikit-learn/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:scikit-learn' %}">scikit-learn |</a></li>
+        <li class='nav-item pe-3'><a class="nav-link {% if '/linear-regression/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:linear-regression' %}">linear-regression |</a></li>
+    </ul>
+</div>
 
 <!-- PrismJS JS & Autoloader -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>

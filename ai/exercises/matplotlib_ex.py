@@ -1,0 +1,104 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+import requests
+from pathlib import Path
+from datetime import datetime, timedelta
+
+# 한글 폰트 설정 (Windows: Malgun Gothic, Mac: AppleGothic, Linux: NanumGothic)
+plt.rcParams["font.family"] = "Malgun Gothic"
+plt.rcParams["axes.unicode_minus"] = False
+
+weathers = pd.read_csv("../data/weather.csv")
+
+X = weathers["date"]
+y_max = weathers["max"]
+y_min = weathers["min"]
+
+plt.figure(figsize=(12, 8))
+plt.plot(X, y_max, label="Price", marker="o", color="red", linestyle="dotted")
+plt.grid(True, linestyle="--", linewidth="0.5", color="gray", alpha=0.6)
+plt.title("Max", loc="center", fontsize=22)
+plt.xlabel("date")
+plt.ylabel("max")
+plt.xlim(-1, 8)
+plt.ylim(-4, 20)
+plt.legend()
+plt.show()
+
+plt.figure(figsize=(12, 8))
+plt.bar(X, y_min, label="Quantity")
+plt.grid(True, linestyle="-", linewidth="0.5", color="gray", alpha=0.6)
+plt.title("물량", loc="left", fontsize=18)
+plt.xlabel("date")
+plt.ylabel("물량")
+plt.xlim(-1, 8)
+plt.ylim(-4, 15)
+for i, value in enumerate(y_min):
+    plt.text(i, value, str(value), ha="center", va="bottom")
+plt.legend(loc="upper center")
+# plt.tight_layout()
+plt.show()
+
+
+arr3 = np.arange(1, 19).reshape(3, 2, 3)
+
+darray = np.array([[1, 2, 3], [5, 6, 7]])
+print(darray, darray.shape, darray.ndim)
+
+
+cpu_df = pd.read_excel("testfile/cpu_usage_list.xlsx", engine="openpyxl")
+clean_df = cpu_df.drop(columns=["Confirmed", "Comment"])
+print(clean_df.iloc[0:11])
+
+res = requests.get("https://api.github.com")
+print(res.status_code)
+
+# api call
+latitude = 48.85
+longitude = 2.35
+
+today = datetime.now()
+td_week = timedelta(days=7)
+week_ago = today - td_week
+start = week_ago.strftime("%Y-%m-%d")
+end = today.strftime("%Y-%m-%d")
+
+url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&start_date={start}&end_date={end}&daily=temperature_2m_max,temperature_2m_min"
+
+response = requests.get(url)
+data = response.json()
+daily_data = data["daily"]
+
+# data frame: Pandas
+temp_df = pd.DataFrame(
+    {
+        "date": daily_data["time"],
+        "max": daily_data["temperature_2m_max"],
+        "min": daily_data["temperature_2m_min"],
+    }
+)
+temp_df["date"] = pd.to_datetime(temp_df["date"])
+temp_df["avg"] = (temp_df["max"] + temp_df["min"]) / 2
+
+output_path_csv = Path("data/weather.csv")
+output_path_csv.parent.mkdir(parents=True, exist_ok=True)
+temp_df.to_csv(output_path_csv)
+
+# graphic : Matplotlib
+plt.figure(figsize=(10, 6))
+plt.plot(temp_df["date"], temp_df["max"], "r-o", label="Max Temp")
+plt.plot(temp_df["date"], temp_df["min"], "b-o", label="Min Temp")
+plt.plot(temp_df["date"], temp_df["avg"], "g--", label="Average Temp")
+plt.title("일주일간 온도 변화")
+plt.xlabel("Temperature (°C)")
+plt.ylabel("온도")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+output_path_img = Path("images/my_plot.png")
+output_path_img.parent.mkdir(parents=True, exist_ok=True)
+plt.savefig(output_path_img)
+plt.show()

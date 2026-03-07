@@ -1,35 +1,32 @@
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/docs-style.css' %}">
-
 <div class="mb-3 mt-0">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs mt-0">
         <li class="docs-nav-home">Django</li>
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'django-tips' %}active fw-bold{% endif %}" href="{% url 'django-tips' %}">Tips</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'django-tips' %}active fw-bold{% endif %}" href="{% url 'django-tips' %}" data-text="Tips">Tips</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'project-intro' %}active fw-bold{% endif %}" href="{% url 'project-intro' %}">Intro</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'project-intro' %}active fw-bold{% endif %}" href="{% url 'project-intro' %}" data-text="Intro">Intro</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'django-setup' %}active fw-bold{% endif %}" href="{% url 'django-setup' %}">Setup</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'django-setup' %}active fw-bold{% endif %}" href="{% url 'django-setup' %}" data-text="Setup">Setup</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'django-celery' %}active fw-bold{% endif %}" href="{% url 'django-celery' %}">Celery</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'django-celery' %}active fw-bold{% endif %}" href="{% url 'django-celery' %}" data-text="Celery">Celery</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'django-orm' %}active fw-bold{% endif %}" href="{% url 'django-orm' %}">ORM</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'django-orm' %}active fw-bold{% endif %}" href="{% url 'django-orm' %}" data-text="ORM">ORM</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'django-model' %}active fw-bold{% endif %}" href="{% url 'django-model' %}">Model</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'django-model' %}active fw-bold{% endif %}" href="{% url 'django-model' %}" data-text="Model">Model</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'django-regexp' %}active fw-bold{% endif %}" href="{% url 'django-regexp' %}">Regexp</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'django-regexp' %}active fw-bold{% endif %}" href="{% url 'django-regexp' %}" data-text="Regexp">Regexp</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'django-datetime' %}active fw-bold{% endif %}" href="{% url 'django-datetime' %}">Datetime</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'django-datetime' %}active fw-bold{% endif %}" href="{% url 'django-datetime' %}" data-text="Datetime">Datetime</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'log_rotate' %}active fw-bold{% endif %}" href="{% url 'log-rotate' %}">Log Rotate</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'log_rotate' %}active fw-bold{% endif %}" href="{% url 'log-rotate' %}" data-text="Log Rotate">Log Rotate</a>
         </li>
     </ul>
 </div>

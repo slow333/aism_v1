@@ -6,41 +6,45 @@
 {% include 'ai/_nav.html' %}
 <div class="container mt-4">
     <div class="text-center mb-2">
-        <h1 class="display-4">Numpy</h1>
+        <h1 class="display-5 doc-title">Numpy</h1>
         <p class="lead text-white">다차원 배열을 효율적으로 처리하고 다양한 수학 함수를 제공하는 수치 계산 라이브(import numpy as np)</p>
     </div>
     
     <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
         <h3 class="border-bottom mb-1">배열 생성</h3>
         <p>np.array( )로 파이썬 리스트를 넘파이 배열로 변환하여 생성</p>
-        arr = np.array([1,2,3])
-        arr * 2 == [2,4,6]
-        arr3 = np.arange(1,19).reshape(3, 2, 3)
-        arr3 = np.array([
-            [[ 1,  2,  3], [ 4,  5,  6]],
-            [[ 7,  8,  9], [10, 11, 12]],
-            [[13, 14, 15], [16, 17, 18]]
-        ])
-        ndarray.shape: 축 순서대로 크기
-        ndarray.ndim : 차원의 개수
-        ndarray.dtype : 배열 요소의 데이터 타입
-        ndarray.itemsize : 개별 데이터 요소의 크기(byte)
-        ndarray.size : 전채 요소의 개수
+<pre>arr = np.array([1,2,3])
+arr * 2 == [2,4,6]
+arr3 = np.arange(1,19).reshape(3, 2, 3)
+arr3 = np.array([
+    [[ 1,  2,  3], [ 4,  5,  6]],
+    [[ 7,  8,  9], [10, 11, 12]],
+    [[13, 14, 15], [16, 17, 18]]
+])
+ndarray.shape: 축 순서대로 크기
+ndarray.ndim : 차원의 개수
+ndarray.dtype : 배열 요소의 데이터 타입
+ndarray.itemsize : 개별 데이터 요소의 크기(byte)
+ndarray.size : 전채 요소의 개수
+</pre>
     </div>
     <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
         <h3 class="border-bottom mb-1">데이터 타입</h3>
-<pre>int8 : i1</pre>
-<pre>int16 : i2</pre>
-<pre>int32 : i4</pre>
-<pre>int64 : i8</pre>
-<pre>uint8 : u1</pre>
-<pre>uint16 : u2</pre>
-<pre>uint32 : u4</pre>
-<pre>uint64 : u8</pre>
-<pre>float16 : f2</pre>
-<pre>float32 : f4</pre>
-<pre>float64 : f8</pre>
-<pre>'&lt;U2' : 2 char</pre>
+<div class="row">
+<pre class="col-4">int8 : i1
+int16 : i2
+int32 : i4
+int64 : i8</pre>
+<pre class="col-4">uint8 : u1
+uint16 : u2
+uint32 : u4
+uint64 : u8</pre>
+<pre class="col-4">float16 : f2
+float32 : f4
+float64 : f8
+'&lt;U2' : 2 char</pre>
+
+</div>
         <h3 class="border-bottom mb-1">arange, linspace</h3>
         <p>np.arange(start = 10, stop = 30, step = 5, dtype = int)</p>
         <p>동인한 간격의 일정한 데이터 열 생성
@@ -112,5 +116,23 @@ for cls in range(scores.shape[0]):
         print(f'{kor}, {eng}, {math}, {music}, avg : {average}')
 </pre>
     </div>
+    
+</div>
+<div class="container mt-4">
+    <div class="text-center mb-2">
+        <h1 class="display-4">Pandas</h1>
+        <p class="lead text-white">2차원 배열을 다루는 라이브러리</p>
+    </div>
+    <div class="glass-card rounded-2 shadow-sm px-4 pb-3 mb-4">
+        <h3 class="border-bottom mb-1">csv, excel 등을 가져와서 작업을 쉽게해줌</h3>
+        <p>pd.read_csv("path/to/file.csv")</p>
+<pre>dict = pd.DataFrame(inputdict)
+dict[dict["c_index"] > 2]["name"]
+cpu_data = pd.read_excel("../data/cpu_usage_list.xlsx")
+cpu_data.tail(3)
+cpu_data[cpu_data["Usage(%)"] > 1][["Date Time", "IP", "Hostname", "Usage(%)"]].count()</pre>
+    </div>
+
+
 </div>
 {% endblock %}
