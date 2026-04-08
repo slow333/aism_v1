@@ -3,7 +3,7 @@
     padding-bottom: 3rem; 
 }
 .doc-title { 
-    color: #474747; 
+    color: #cfcece; 
     font-weight: 700;
 }
 
@@ -64,7 +64,7 @@
     border-radius: 0.25rem; 
 }
 .docs-nav-home {
-    color:rgb(38, 0, 252); 
+    color:rgb(198, 188, 252); 
     height:2rem; 
     margin:2px 12px 0 2px; 
     padding:6px;
@@ -80,7 +80,7 @@ div ul.nav li.nav-item a.nav-link:hover {
     color: black;
 }
 div ul li a.nav-link {
-    color: rgb(54, 54, 54);
+    color: rgb(31, 31, 31);
     padding: 0;
 }
 /* .nav-link {
@@ -93,6 +93,7 @@ div ul li a.nav-link {
 } */
 .nav-tabs .nav-link {
     text-align: center;
+    opacity: 0.4;
 }
 .nav-tabs .nav-link:hover {
     color: #f3ff8b !important;

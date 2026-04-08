@@ -4,41 +4,51 @@ body {
   font-family: 'Noto Sans KR', sans-serif;
   letter-spacing: -0.015em;
   line-height: 1.6;
-  /* height: 100%; */
   position: relative;
+  background: 
+    /* linear-gradient(rgba(160, 160, 160, 0.288), rgba(68, 68, 68, 0.548)),  */
+    /* 어두운 오버레이 유지 */
+    url('/static/images/window.jpg') no-repeat center 6rem fixed; /* 창문 밖에 비 내리는 배경 이미지 */
+  background-size: contain;
+  background-color: #212529; /* 사진과 어울리는 어두운 색상 */
 }
-
-/* Gradient Background */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  z-index: -2;
-  background: linear-gradient(to top, #dce6fc, #a1aee9, #939af7, #7d85ff, #dce6fc);
-}
-
-/* Stars Animation */
-@keyframes twinkle {
+/* url('https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed; 비 맺힌 창문 이미지 */
+/* https://pin.it/7HY7riZRb */
+@keyframes rain {
   from { background-position: 0 0; }
-  to { background-position: -1000px 1000px; }
+  to { background-position: 0 1000px; }
 }
 
+@keyframes rain-slow {
+  from { background-position: 0 0; }
+  to { background-position: 0 800px; }
+}
+
+/* 전경에 내리는 비 (빠르고, 얇고, 선명함) */
 body::after {
   content: "";
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
   z-index: -1;
-  background-image: 
-    radial-gradient(circle at 20px 30px, #eee 1px, transparent 2px),
-    radial-gradient(circle at 40px 70px, #fff 1px, transparent 4px),
-    radial-gradient(circle at 50px 160px, #ddd 1px, transparent 1px),
-    radial-gradient(circle at 90px 40px, #fff 2px, transparent 6px),
-    radial-gradient(circle at 130px 80px, #fff 1px, transparent 2.5px),
-    radial-gradient(circle at 160px 120px, #ddd 3px, transparent 3px);
+  background-image:
+    linear-gradient(92deg, transparent, transparent 99.5%, rgba(174, 200, 255, 0.35) 99.5%, transparent 100%),
+    linear-gradient(95deg, transparent, transparent 99%, rgba(174, 200, 255, 0.45) 99%, transparent 100%),
+    linear-gradient(98deg, transparent, transparent 98.5%, rgba(174, 200, 255, 0.55) 98.5%, transparent 100%),
+    linear-gradient(93deg, transparent, transparent 99.2%, rgba(174, 200, 255, 0.4) 99.2%, transparent 100%),
+    linear-gradient(97deg, transparent, transparent 99.8%, rgba(174, 200, 255, 0.6) 99.8%, transparent 100%),
+    linear-gradient(91deg, transparent, transparent 98.8%, rgba(174, 200, 255, 0.3) 98.8%, transparent 100%);
   background-repeat: repeat;
-  background-size: 200px 200px;
-  animation: twinkle 60s linear infinite;
-  opacity: 0.4;
+  background-size: 317px 317px, 251px 251px, 439px 439px, 383px 383px, 499px 499px, 193px 193px;
+  animation: rain 1.5s linear infinite;
+  opacity: 0.7;
+  -webkit-mask-image: url('/static/images/window.jpg');
+  -webkit-mask-size: contain;
+  -webkit-mask-position: center 6rem;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url('/static/images/window.jpg');
+  mask-size: contain;
+  mask-position: center 6rem;
+  mask-repeat: no-repeat;
 }
 .offcanvas-backdrop.show {
     opacity: 0.75;
@@ -98,7 +108,7 @@ ul.nav .nav-item a {
   color: #ffffff;
 }
 .content-section, section {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.9);
   color: #333333;
   padding: 10px 20px;
   border: 1px solid #dddddd;

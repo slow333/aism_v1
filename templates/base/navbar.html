@@ -5,18 +5,11 @@
   }
 </style>
 
-<nav
-  class="navbar fixed-top navbar-light shadow-sm py-0 mb-0 navbar-custom navbar-expand"
->
+<nav class="navbar fixed-top navbar-light shadow-sm py-0 mb-0 navbar-custom navbar-expand-lg" style="min-height: 48px;">
   <div class="container-fluid">
     <div class="d-flex align-items-center">
-      <button
-        class="btn btn-link text-dark p-0 me-3"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#sidebarCol"
-        aria-controls="sidebarCol"
-      >
+      <button class="btn btn-link text-dark p-0 me-3" type="button"
+        data-bs-toggle="offcanvas" data-bs-target="#sidebarCol" aria-controls="sidebarCol" >
         <i class="bi bi-list fs-3"></i>
       </button>
       <a class="navbar-brand me-4" href="{% url 'main-index' %}">
@@ -24,29 +17,17 @@
       </a>
     </div>
 
-    <button
-      class="navbar-toggler border-0"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarToggle"
-      aria-controls="navbarToggle"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler border-0" type="button"
+      data-bs-toggle="collapse" data-bs-target="#navbarToggle"
+      aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation" >
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse flex-wrap" id="navbarToggle">
-      <ul class="navbar-nav me-auto mb-0 fw-medium flex-wrap">
+    <div class="collapse navbar-collapse" id="navbarToggle">
+      <ul class="navbar-nav me-auto mb-0 fw-medium">
         <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle px-3 {% if '/docs/' in request.path %} active text-primary {% endif %}"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            >Docs</a
-          >
+          <a class="nav-link dropdown-toggle px-3 {% if '/docs/' in request.path %} active text-primary {% endif %}"
+            href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Docs</a>
           <ul class="dropdown-menu shadow border-0 rounded-3">
             <li> <a class="dropdown-item" href="{% url 'docs-contents' %}">Docs Main</a></li>
             <li><hr class="dropdown-divider bg-white" /></li>
@@ -72,8 +53,7 @@
           <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
             role="button" data-bs-toggle="dropdown" aria-expanded="false" >
             {% if user.is_authenticated %}
-            <img
-              src="{{ user.profile.image.url }}"
+            <img src="{{ user.profile.image.url }}"
               class="rounded-circle me-2 border object-fit-cover"
               width="32" height="32" alt="" />
             <span class="fw-medium">{{ user.username }}</span>
