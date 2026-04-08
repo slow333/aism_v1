@@ -3,17 +3,18 @@
     background-color: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(12px);
   }
+  #main-navbar li.nav-item a.nav-link { color: white; }
 </style>
 
-<nav class="navbar fixed-top navbar-light shadow-sm py-0 mb-0 navbar-custom navbar-expand-lg" style="min-height: 48px;">
+<nav class="navbar fixed-top navbar-light shadow-sm py-0 mb-0 navbar-custom navbar-expand-lg" style="min-height: 48px;" id='main-navbar'>
   <div class="container-fluid">
     <div class="d-flex align-items-center">
-      <button class="btn btn-link text-dark p-0 me-3" type="button"
+      <button class="btn btn-link p-0 me-3" type="button"
         data-bs-toggle="offcanvas" data-bs-target="#sidebarCol" aria-controls="sidebarCol" >
-        <i class="bi bi-list fs-3"></i>
+        <i class="bi bi-list fs-3 text-light"></i>
       </button>
       <a class="navbar-brand me-4" href="{% url 'main-index' %}">
-        <i class="bi bi-house-heart-fill text-primary fs-4"></i>
+        <i class="bi bi-house-heart-fill fs-4 text-light"></i>
       </a>
     </div>
 

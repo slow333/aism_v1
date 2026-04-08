@@ -1,9 +1,18 @@
-from django.conf import settings
-from .models_basic import CommandHistory, ServerInfo
-from .models_resource import CPUUsage, MemoryUsage,NetworkUsage, DiskUsage
-import paramiko, os, json, csv, io
-from django.utils.timezone import make_aware
+import csv
+import io
+import json
+import logging
+import os
 from datetime import datetime
+
+import paramiko
+from django.conf import settings
+from django.utils.timezone import make_aware
+
+from .models_basic import CommandHistory, ServerInfo
+from .models_resource import CPUUsage, DiskUsage, MemoryUsage, NetworkUsage
+
+logger = logging.getLogger(__name__)
 
 def get_ssh_connection(ssh_obj):
     client = paramiko.SSHClient()
@@ -100,10 +109,10 @@ def common_ssh_usage_collector(request, ssh_obj, default_script_name, remote_scr
                     if row_processor(row, ssh_obj, aware_dt):
                         saved_count += 1
                 except ValueError as e:
-                    print(f"Date parse error: {e}")
+                    logger.error(f"Date parse error: {e}")
                     continue
                 except Exception as e:
-                    print(f"Row processing error: {e}")
+                    logger.error(f"Row processing error: {e}")
                     continue
         except csv.Error as e:
             return None, False, {}, f"CSV parsing error: {str(e)}"

@@ -26,7 +26,7 @@
         border: none;
         padding: 0.6rem 0.5rem;
         font-weight: 600;
-        color: #495057;
+        color: #d9dcdf;
         border-radius: 0.5rem;
         transition: all 0.2s ease;
         display: flex;
@@ -42,7 +42,7 @@
         display: block;
         padding: 0.5rem 0.5rem 0.5rem 2.2rem;
         text-decoration: none;
-        color: #6c757d;
+        color: #dbdbdb;
         font-weight: 500;
         border-radius: 0.5rem;
         transition: all 0.2s ease;
@@ -69,7 +69,7 @@
 <div class="d-flex flex-column sidebar-card h-100 pb-3">
     <!-- Apps Section -->
     <div class="px-3">
-        <div class="sidebar-section-title">Applications</div>
+        <div class="sidebar-section-title text-light">Applications</div>
         <button class="sidebar-btn" type="button" 
             data-bs-toggle="collapse" data-bs-target="#sidebar-apps" 
             aria-expanded="{% if '/asct/' in request.path or '/notes/' in request.path %}true{% else %}false{% endif %}" 
@@ -91,7 +91,7 @@
 
     <!-- Docs Section -->
     <div class="px-3">
-        <div class="sidebar-section-title">Documentation</div>
+        <div class="sidebar-section-title text-light">Documentation</div>
         
         <!-- Django -->
         <button class="sidebar-btn" type="button" 

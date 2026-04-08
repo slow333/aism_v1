@@ -1,45 +1,41 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // 사이드바의 collapse 요소들을 가져옵니다.
-    const sidebarCollapses = document.querySelectorAll('.col-md-3 .collapse');
-    const storageKey = 'sidebarCollapseState';
+$(function () { 
+    const $sidebarItems = $('.col-md-3 .collapse'); 
 
-    // localStorage에서 현재 상태를 가져오는 함수
     function getStoredState() {
-        const storedState = localStorage.getItem(storageKey);
-        return storedState ? JSON.parse(storedState) : [];
+        const storedState = localStorage.getItem('sidebarCollapseState');
+        return storedState ? JSON.parse(storedState) : []; 
     }
 
-    // localStorage에 상태를 저장하는 함수
     function saveState(openItems) {
-        localStorage.setItem(storageKey, JSON.stringify(openItems));
+        localStorage.setItem('sidebarCollapseState', JSON.stringify(openItems));
     }
 
     // 페이지 로드 시 저장된 상태 복원
     const openItems = getStoredState();
     openItems.forEach(function(itemId) {
-        const element = document.getElementById(itemId);
-        if (element) {
-            element.classList.add('show');
-            const button = document.querySelector(`[data-bs-target="#${itemId}"]`);
-            if (button) {
-                button.setAttribute('aria-expanded', 'true');
+        const $element = $('#' + itemId); 
+        if ($element.length) {
+            $element.addClass('show');
+            const $button = $(`[data-bs-target="#${itemId}"]`); 
+            if ($button.length) { 
+                $button.attr('aria-expanded', 'true');
             }
         }
     });
 
     // collapse 이벤트 리스너를 추가하여 상태 변경 시 저장
-    sidebarCollapses.forEach(function (collapseEl) {
-        collapseEl.addEventListener('shown.bs.collapse', function () {
+    $sidebarItems.each(function () { 
+        $(this).on('shown.bs.collapse', function () { 
             let openItems = getStoredState();
-            if (!openItems.includes(this.id)) {
-                openItems.push(this.id);
+            if (!openItems.includes($(this).attr('id'))) { 
+                openItems.push($(this).attr('id'));
                 saveState(openItems);
             }
         });
 
-        collapseEl.addEventListener('hidden.bs.collapse', function () {
+        $(this).on('hidden.bs.collapse', function () {
             let openItems = getStoredState();
-            const index = openItems.indexOf(this.id);
+            const index = openItems.indexOf($(this).attr('id'));
             if (index > -1) {
                 openItems.splice(index, 1);
                 saveState(openItems);
@@ -48,42 +44,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Sidebar show/hide toggle
-    const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
-    const mainCol = document.getElementById('mainContentCol');
-    const sidebarCol = document.getElementById('sidebarCol');
-    const storageKeyHidden = 'sidebarHidden';
+    const $sidebarToggleBtn = $('#sidebarToggleBtn');
+    const $mainCol = $('#mainContentCol');
 
     function applySidebarState(hidden) {
-        if (!mainCol || !sidebarCol || !sidebarToggleBtn) return;
+        if (!$mainCol.length || !$('#sidebarCol').length || !$sidebarToggleBtn.length) return;
         if (hidden) {
-            sidebarCol.style.display = 'none';
-            mainCol.classList.remove('col-md-10');
-            mainCol.classList.add('col-md-12');
-            sidebarToggleBtn.setAttribute('aria-expanded', 'false');
+            $('#sidebarCol').hide();
+            $mainCol.removeClass('col-md-10').addClass('col-md-12');
+            $sidebarToggleBtn.attr('aria-expanded', 'false'); 
         } else {
-            sidebarCol.style.display = '';
-            mainCol.classList.remove('col-md-12');
-            mainCol.classList.add('col-md-10');
-            sidebarToggleBtn.setAttribute('aria-expanded', 'true');
+            $('#sidebarCol').show();
+            $mainCol.removeClass('col-md-12').addClass('col-md-10');
+            $sidebarToggleBtn.attr('aria-expanded', 'true'); 
         }
     }
 
     // initialize from localStorage
     try {
-        const hidden = localStorage.getItem(storageKeyHidden) === 'true';
+        const hidden = localStorage.getItem('sidebarHidden') === 'true';
         applySidebarState(hidden);
     } catch (e) {}
 
-    if (sidebarToggleBtn) {
-        sidebarToggleBtn.addEventListener('click', function () {
+    if ($sidebarToggleBtn.length) {
+        $sidebarToggleBtn.on('click', function () {
             try {
-                const currentlyHidden = localStorage.getItem(storageKeyHidden) === 'true';
+                const currentlyHidden = localStorage.getItem('sidebarHidden') === 'true';
                 const toHide = !currentlyHidden;
                 applySidebarState(toHide);
-                localStorage.setItem(storageKeyHidden, toHide ? 'true' : 'false');
+                localStorage.setItem('sidebarHidden', toHide ? 'true' : 'false');
             } catch (e) {
-                // fallback toggle
-                const isHidden = sidebarCol.style.display === 'none';
+                const isHidden = $('#sidebarCol').is(':hidden');
                 applySidebarState(!isHidden);
             }
         });
