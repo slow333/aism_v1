@@ -11,7 +11,6 @@ from .views_common import (
     filter_by_q_and_hostlist,
 )
 
-
 # =============== Disk usage 관련 Celery ===============
 @login_required
 def disk_usage_list(request):
@@ -25,7 +24,7 @@ def disk_usage_list(request):
         except ValueError:
             pass
 
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, 20)
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
 
@@ -88,7 +87,8 @@ def disk_usage_chart(request):
 # =============== Traffic usage 관련 CRUD ===============
 @login_required
 def traffic_usage_list(request):
-    return common_list(request, NetworkUsage, "asct/traffic_usage/list.html")
+    return common_list(request, NetworkUsage, 
+                    "asct/traffic_usage/list.html", per_page=20)
 
 
 @login_required
@@ -144,7 +144,7 @@ def traffic_usage_chart(request):
 # =============== Memory usage 관련 CRUD ===============
 @login_required
 def memory_usage_list(request):
-    return common_list(request, MemoryUsage, "asct/memory_usage/list.html")
+    return common_list(request, MemoryUsage, "asct/memory_usage/list.html", per_page=20)
 
 
 @login_required
@@ -193,7 +193,7 @@ def memory_usage_export(request):
 # =============== CPU usage 관련 CRUD ===============
 @login_required
 def cpu_usage_list(request):
-    return common_list(request, CPUUsage, "asct/cpu_usage/list.html")
+    return common_list(request, CPUUsage, "asct/cpu_usage/list.html", per_page=20)
 
 
 @login_required

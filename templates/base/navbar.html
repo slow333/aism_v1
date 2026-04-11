@@ -45,7 +45,10 @@
           <a class="nav-link px-3 {% if '/asct/' in request.path %} active text-primary {% endif %}" href="{% url 'asct:index' %}" >ASCT</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3 {% if '/notes/' in request.path %} active text-primary {% endif %}" href="{% url 'notes:notes-list' %}" >Notes</a>
+          <a class="nav-link px-3 {% if '/notes/' in request.path %} active text-primary {% endif %}" href="{% url 'notes:notes-list' %}" >매모</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 {% if '/todos/' in request.path %} active text-primary {% endif %}" href="{% url 'todos:calendar' %}">달력</a>
         </li>
       </ul>
 

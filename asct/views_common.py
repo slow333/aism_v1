@@ -34,7 +34,9 @@ def filter_by_days(request, queryset):
 
 def filter_by_q_and_hostlist(request, model_obj):
     queryset = model_obj.objects.all()
-    host_list = model_obj.objects.exclude(hostname__isnull=True).values_list('hostname', flat=True).distinct().order_by('hostname')
+    host_list = model_obj.objects.exclude(hostname__isnull=True)\
+        .values_list('hostname', flat=True)\
+        .distinct().order_by('hostname')
     
     query = request.GET.get('q', '')
     if query:
@@ -131,10 +133,10 @@ def common_chart(request, model_class, title_prefix, y_label, data_extractor, te
     }
     return render(request, template_name, context)
 
-def common_list(request, model_class, template_name):
+def common_list(request, model_class, template_name, per_page=10):
     queryset, query, host_list = filter_by_q_and_hostlist(request, model_class)
     
-    paginator = Paginator(queryset, 10)
+    paginator = Paginator(queryset, per_page)
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
     

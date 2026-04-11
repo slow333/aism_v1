@@ -11,7 +11,7 @@ body {
   line-height: 1.6;
   position: relative;
   background: 
-    url('/static/images/bg-4.png') repeat-y center 3rem fixed;
+    url('/static/images/bg-4.jpg') repeat-y center 3rem fixed;
   background-size: contain;
   background-color: #1b1b1b; /* 사진과 어울리는 어두운 색상 */
 }

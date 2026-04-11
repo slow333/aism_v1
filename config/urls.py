@@ -13,6 +13,7 @@ urlpatterns = [
     path("asct/", include("asct.urls")),
     path("notes/", include("notes.urls")),
     path("docs/", include("docs.urls")),
+    path("todos/", include("todos.urls")),
 ]
 
 if settings.DEBUG:

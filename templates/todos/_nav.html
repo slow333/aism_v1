@@ -1,0 +1,42 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/calendar-style.css' %}">
+
+<nav class="navbar navbar-expand navbar-light mb-3 rounded-3 shadow-sm p-2 position-relative z-3 nav_custom">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-light" href="{% url 'todos:calendar' %}">
+            <i class="bi bi-calendar-check me-2"></i>달력</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-wrap">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Events
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'todos:event-list' %}">Events List</a></li>
+                    <li><a class="dropdown-item" href="{% url 'todos:event-create' %}">Create Event</a></li>
+                    <li><a class="dropdown-item" href="{% url 'todos:event-list' %}?is_completed=True">Completed</a></li>
+                    <li><a class="dropdown-item" href="{% url 'todos:event-list' %}?is_completed=False">Incomplete</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Favorites </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'todos:favorite-list' %}">사진목록</a></li>
+                    <li><a class="dropdown-item" href="{% url 'todos:favorite-create' %}">생성하기</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <form class="d-flex mb-0 ms-3 gap-2" role="search" action="{% url 'todos:event-list' %}">
+            <input class="form-control form-control-sm rounded-pill px-3 py-0" type="search" 
+                placeholder="Events" name='searched' />
+            <button class="btn btn-outline-success btn-sm rounded-pill px-3 py-0" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+        <form class="d-flex mb-0 ms-2 gap-2" role="search" action="{% url 'todos:favorite-list' %}">
+            <input class="form-control form-control-sm rounded-pill px-3 py-0" type="search" 
+                placeholder="Photos" name='searched' />
+            <button class="btn btn-outline-info btn-sm rounded-pill px-3 py-0" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+</nav>
