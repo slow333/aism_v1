@@ -4,17 +4,10 @@
 {% block content %}
 {% include 'todos/_nav.html' %}
 <div class="d-flex align-items-center justify-content-between mb-2">
-    <h1 class="fw-bold text-white"><i class="bi bi-images me-2"></i>Favorites Gallery</h1>
+    <h1 class="fw-bold text-white">🖼️ Favorites Gallery</h1>
     <span class="badge bg-primary rounded-pill fs-6 px-3 py-2">{{ page_obj.paginator.count }} Photos</span>
 </div>
 
-<style>
-    .photo-style {
-        object-fit: cover; 
-        border-top-left-radius: 0.75rem; 
-        border-top-right-radius: 0.75rem;
-    }
-</style>
 <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 mb-4">
     {% for favorite in page_obj %}
     <div class="col">
@@ -23,21 +16,15 @@
                 {% if favorite.image %}
                 <img src="{{ favorite.image.url }}" class="card-img-top photo-style" width="100%" height="250px" alt="{{ favorite.name }}">
                 {% else %}
-                <div class="bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center photo-style">
-                    <i class="bi bi-person-bounding-box fs-1 text-secondary"></i>
-                </div>
+                <div class="bg-secondary bg-opacity-10 flex-center photo-style">👨🏻‍🦱</div>
                 {% endif %}
                 <div class="position-absolute top-0 end-0 p-2">
-                    <a href="{% url 'todos:favorite-detail' favorite.id %}{% if request.GET.page %}?page={{ request.GET.page }}{% endif %}" class="btn btn-light btn-sm rounded-circle shadow-sm opacity-75 hover-opacity-100" title="View Details">
-                        <i class="bi bi-arrows-angle-expand"></i>
-                    </a>
+                    <a href="{% url 'todos:favorite-detail' favorite.id %}{% if request.GET.page %}?page={{ request.GET.page }}{% endif %}" class="btn btn-light btn-sm rounded-circle shadow-sm opacity-75 hover-opacity-100" title="View Details">🔎</a>
                 </div>
             </div>
             <div class="card-body text-center p-1">
                 <h5 class="card-title fw-bold text-dark mb-1">{{ favorite.name }}</h5>
-                <p class="card-text text-muted small">
-                    <i class="bi bi-calendar-event me-1"></i>Attended: {{ favorite.event_set.count }}
-                </p>
+                <p class="card-text text-muted small">👨🏻‍🦱 Attended: {{ favorite.event_set.count }}</p>
             </div>
             <div class="card-footer bg-transparent border-top-0 pt-0 d-flex justify-content-center">
                 {% if user.is_authenticated %}

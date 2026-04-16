@@ -1,8 +1,5 @@
 {% load static %}
-<!-- PrismJS CSS (Syntax Highlighting) -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
-<!-- PrismJS Toolbar CSS (Required for Copy Button) -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet" />
+
 <link rel="stylesheet" href="{% static 'css/docs-style.css' %}">
 <div class="d-flex justify-content-center">
     <ul class="nav nav-tab mb-2 mb-lg-0 flex-wrap">
@@ -15,10 +12,3 @@
         <li class='nav-item pe-3'><a class="nav-link {% if '/linear-regression/' in request.path %} active text-primary {% endif %}" href="{% url 'ai:linear-regression' %}">linear-regression |</a></li>
     </ul>
 </div>
-
-<!-- PrismJS JS & Autoloader -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-<!-- PrismJS Toolbar & Copy to Clipboard Plugins -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>

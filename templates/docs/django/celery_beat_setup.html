@@ -20,39 +20,38 @@
     <h2 class="doc-header">1. Docker 설치 및 Redis 실행</h2>
     <ol>
         <li>Docker 설치 및 실행</li>
-        <li>Redis 이미지 Pull: <code>docker pull redis</code></li>
-        <li>Redis 컨테이너 실행: <code>docker run --name my-redis -p 6379:6379 -d redis</code></li>
-        <li>실행 확인: <code>docker ps</code></li>
-        <li>서비스 체크: <code>docker exec -it my-redis redis-cli ping</code> &gt; <strong>PONG</strong></li>
+        <li>Redis 이미지 Pull: docker pull redis</li>
+        <li>Redis 컨테이너 실행: docker run --name my-redis -p 6379:6379 -d redis</li>
+        <li>실행 확인: docker ps</li>
+        <li>서비스 체크: docker exec -it my-redis redis-cli ping &gt; <strong>PONG</strong></li>
     </ol>
 </section>
 
 <section class="doc-section">
     <h2 class="doc-header">2. Python 패키지 설치 (venv)</h2>
-    <pre><code class="language-bash">pip install redis
-pip install eventlet</code></pre>
+    <pre>pip install redis
+pip install eventlet</pre>
 </section>
 
 <section class="doc-section">
     <h2 class="doc-header">3. Django Config 설정</h2>
     
     <h3 class="doc-subheader">config/celery.py</h3>
-<pre><code class="language-python">import os
 from celery import Celery
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 app = Celery('config')
 app.config_from_object('django.conf:settings', namespace='CELERY')
-app.autodiscover_tasks()</code></pre>
+app.autodiscover_tasks()</pre>
 
     <h3 class="doc-subheader">config/__init__.py</h3>
-<pre><code class="language-python">from .celery import app as celery_app
+<pre>from .celery import app as celery_app
 
-__all__ = ('celery_app',)</code></pre>
+__all__ = ('celery_app',)</pre>
 
     <h3 class="doc-subheader">settings.py</h3>
-<pre><code class="language-python"># settings.py
+<pre># settings.py
 from celery.schedules import crontab
 
 CELERY_BEAT_SCHEDULE = {
@@ -85,10 +84,10 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
 # DB 기반 스케줄러 사용 (django-celery-beat)
 # 이 설정을 추가하면 위쪽의 CELERY_BEAT_SCHEDULE 딕셔너리는 무시되고 DB의 내용을 따릅니다.
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'</code></pre>
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'</pre>
 
     <h3 class="doc-subheader">asct/tasks.py</h3>
-<pre><code class="language-python">from celery import shared_task
+<pre>from celery import shared_task
 import paramiko, json, os
 from django.conf import settings
 from .run_by_ssh import get_ssh_connection
@@ -174,29 +173,29 @@ def cleanup_old_data(days=30):
     CPUUsage.objects.filter(data_time__lt=threshold).delete()
     MemoryUsage.objects.filter(data_time__lt=threshold).delete()
     NetworkUsage.objects.filter(data_time__lt=threshold).delete()
-    DiskUsage.objects.filter(checked_at__lt=threshold).delete()</code></pre>
+    DiskUsage.objects.filter(checked_at__lt=threshold).delete()</pre>
 </section>
 
 <section class="doc-section">
     <h2 class="doc-header">4. Celery 실행 (venv 환경)</h2>
     <h3 class="doc-subheader">Terminal 1: Worker 실행</h3>
-<pre><code class="language-bash"># 일반 실행 (Linux 등) - Windows에서는 권한 오류 발생 가능
+<pre># 일반 실행 (Linux 등) - Windows에서는 권한 오류 발생 가능
 celery -A config worker -l info
 
 # Windows 환경 (eventlet 사용 필수)
 celery -A config worker -l info -P eventlet
 
 # 개발 환경 (단일 스레드)
-celery -A config worker -l info -P solo</code></pre>
+celery -A config worker -l info -P solo</pre>
 
     <h3 class="doc-subheader">Terminal 2: Beat 실행 (스케줄러)</h3>
-<pre><code class="language-bash">celery -A config beat -l info</code></pre>
+<pre>celery -A config beat -l info</pre>
 
     <div class="alert alert-danger mt-3">
         <h5 class="alert-heading">Troubleshooting</h5>
         <p>Redis 연결 오류가 발생하면 다음을 확인하세요:</p>
         <ul>
-            <li><code>pip install redis</code> 및 <code>pip install eventlet</code> 설치 여부</li>
+            <li>pip install redis 및 pip install eventlet 설치 여부</li>
             <li>Docker에서 Redis 컨테이너가 실행 중인지 확인</li>
         </ul>
     </div>
@@ -206,26 +205,26 @@ celery -A config worker -l info -P solo</code></pre>
     
     <h4>1. Redis 로그 확인 (Docker)</h4>
     <p>Docker 환경에서는 로그가 파일이 아닌 표준 출력으로 기록됩니다.</p>
-    <pre><code class="language-bash">docker logs my-redis</code></pre>
-    <p>로그 끝부분에 <code>DENIED Redis is running in protected mode...</code> 메시지가 있다면 외부(호스트) 접속이 차단된 상태입니다.</p>
+    <pre>docker logs my-redis</pre>
+    <p>로그 끝부분에 DENIED Redis is running in protected mode... 메시지가 있다면 외부(호스트) 접속이 차단된 상태입니다.</p>
 
     <h4>2. 해결 방법 (start.ps1 수정)</h4>
-    <p>Redis 컨테이너 실행 시 <code>--bind 0.0.0.0</code> 옵션을 추가하여 외부 접속을 허용하고, 필요시 <code>--protected-mode no</code>를 설정합니다.</p>
-    <pre><code class="language-powershell"># start.ps1 수정
-docker run --name my-redis -p 6379:6379 -d redis redis-server --bind 0.0.0.0 --protected-mode no</code></pre>
+    <p>Redis 컨테이너 실행 시 --bind 0.0.0.0 옵션을 추가하여 외부 접속을 허용하고, 필요시 --protected-mode no를 설정합니다.</p>
+    <pre># start.ps1 수정
+docker run --name my-redis -p 6379:6379 -d redis redis-server --bind 0.0.0.0 --protected-mode no</pre>
 
     <h4>3. 적용 방법</h4>
     <p>기존 컨테이너를 삭제하고 스크립트를 다시 실행해야 설정이 적용됩니다.</p>
-    <pre><code class="language-powershell">docker rm -f my-redis
-.\start.ps1</code></pre>
+    <pre>docker rm -f my-redis
+.\start.ps1</pre>
 
     <h3 class="doc-subheader">에러 발생: Possible SECURITY ATTACK detected (Redis 로그)</h3>
-    <p>Redis 로그에 <code>Possible SECURITY ATTACK detected. It looks like somebody is sending POST or Host: commands to Redis.</code> 메시지가 나타나는 경우입니다.</p>
+    <p>Redis 로그에 Possible SECURITY ATTACK detected. It looks like somebody is sending POST or Host: commands to Redis. 메시지가 나타나는 경우입니다.</p>
     
     <h4>1. 원인</h4>
     <p>Redis 포트(6379)로 <strong>HTTP 요청</strong>(웹 브라우저 접속, REST API 호출 등)이 들어왔을 때 발생합니다. Redis는 HTTP 프로토콜을 이해하지 못하므로 이를 공격 시도로 간주하고 연결을 끊습니다.</p>
     <ul>
-        <li>실수로 웹 브라우저에서 <code>http://localhost:6379</code>로 접속한 경우</li>
+        <li>실수로 웹 브라우저에서 http://localhost:6379로 접속한 경우</li>
         <li>보안 스캐너가 포트를 스캔하는 경우</li>
     </ul>
 
@@ -235,9 +234,9 @@ docker run --name my-redis -p 6379:6379 -d redis redis-server --bind 0.0.0.0 --p
     <h3 class="doc-subheader">애러 발생: 하나의 로그에 대해 여러 프로세스가 날짜별 백업 파일로 이름을 변경할 때</h3>
     <p>Windows 환경에서 여러 프로세스(Django Runserver, Celery Worker, Celery Beat)가 동시에 동일한 로그 파일(asct_system.log)을 회전(Rotation)시키려 할 때 발생합니다. Windows 파일 시스템은 파일이 열려 있는 동안 이름 변경(Rename)을 허용하지 않기 때문에, 한 프로세스가 로그 파일을 잡고 있으면 다른 프로세스가 날짜별 백업 파일로 이름을 변경하려 할 때 PermissionError: [WinError 32]가 발생합니다.<br>
 이 문제를 해결하는 가장 확실한 방법은 <strong>Log Rotation을 중지(FileHandler 사용)</strong>하거나, 각 프로세스별로 별도의 로그 파일을 생성하도록 설정하는 것입니다.<br>
-아래는 서비스별로 로그 파일을 분리하는 방법입니다. (단순히 해결하려면 settings.py에서 <code>TimedRotatingFileHandler</code>를 <code>logging.FileHandler</code>로 변경하세요.)</p>
+아래는 서비스별로 로그 파일을 분리하는 방법입니다. (단순히 해결하려면 settings.py에서 TimedRotatingFileHandler를 logging.FileHandler로 변경하세요.)</p>
     <h4>start.ps1 </h4>
-    <pre><code class="language-powershell"># 3. Celery Worker (새 창에서 실행 - Windows 환경을 위한 eventlet 옵션 포함)
+    <pre># 3. Celery Worker (새 창에서 실행 - Windows 환경을 위한 eventlet 옵션 포함)
 Write-Host "Launching Celery Worker (Hidden)..."
 Start-Process powershell -ArgumentList "-Command", "$env:SERVICE_TYPE='worker'; 
         . $venvPath; celery -A config worker -l info -P eventlet *> celery_worker.log" -WindowStyle Hidden
@@ -257,9 +256,9 @@ Write-Host "Launching Django Runserver..."
 Write-Host "All background services started. Running Django..."
 . $venvPath
 $env:SERVICE_TYPE='web' # 추가
-python manage.py runserver</code></pre>
+python manage.py runserver</pre>
     <h4>config/settings.py 수정</h4>
-    <pre><code class="language-python"># 환경 변수에서 서비스 타입 가져오기 (기본값: web)
+    <pre># 환경 변수에서 서비스 타입 가져오기 (기본값: web)
 SERVICE_TYPE = os.environ.get('SERVICE_TYPE', 'web')
 
 LOGGING = {
@@ -280,28 +279,28 @@ LOGGING = {
         # ... 다른 핸들러들 ...
     },
     # ... loggers 설정 ...
-}</code></pre>
+}</pre>
 </section>
 
 <section class="doc-section">
     <h2 class="doc-header">5. Django Admin을 이용한 스케줄 관리 (DatabaseScheduler)</h2>
-    <p><code>django-celery-beat</code>를 사용하여 DB 기반으로 스케줄을 관리할 때의 설정 방법입니다.</p>
+    <p>django-celery-beat를 사용하여 DB 기반으로 스케줄을 관리할 때의 설정 방법입니다.</p>
     
     <h3 class="doc-subheader">Interval을 Crontab으로 변경하기</h3>
     <ol>
         <li>Django Admin > <strong>Periodic tasks</strong> 접속</li>
         <li>수정할 태스크 선택</li>
-        <li><strong>Schedule</strong> 섹션에서 <strong>Interval Schedule</strong>을 <code>---------</code> (빈 값)으로 설정</li>
-        <li><strong>Crontab Schedule</strong>에서 원하는 시간 선택 또는 <strong>+</strong> 버튼으로 생성 (예: <code>*/10 * * * *</code>)</li>
+        <li><strong>Schedule</strong> 섹션에서 <strong>Interval Schedule</strong>을 --------- (빈 값)으로 설정</li>
+        <li><strong>Crontab Schedule</strong>에서 원하는 시간 선택 또는 <strong>+</strong> 버튼으로 생성 (예: */10 * * * *)</li>
         <li>저장</li>
     </ol>
 
     <h3 class="doc-subheader">Arguments (인자) 입력 방법</h3>
     <p>태스크에 인자를 전달할 때는 반드시 <strong>JSON 형식</strong>으로 입력해야 합니다.</p>
     <ul>
-        <li><strong>Positional arguments</strong> (위치 인자): 리스트 형식 <code>[30]</code></li>
-        <li><strong>Keyword arguments</strong> (키워드 인자): 딕셔너리 형식 <code>{"days": 30}</code></li>
-        <li>문자열은 반드시 큰따옴표(<code>"</code>) 사용</li>
+        <li><strong>Positional arguments</strong> (위치 인자): 리스트 형식 [30]</li>
+        <li><strong>Keyword arguments</strong> (키워드 인자): 딕셔너리 형식 {"days": 30}</li>
+        <li>문자열은 반드시 큰따옴표(") 사용</li>
     </ul>
 </section>
 
@@ -310,7 +309,7 @@ LOGGING = {
     <p>Django View에서 Celery Worker가 정상적으로 동작 중인지 확인하는 API를 만드는 방법입니다.</p>
 
     <h3 class="doc-subheader">views.py 작성</h3>
-    <pre><code class="language-python">from django.http import JsonResponse
+    <pre>from django.http import JsonResponse
 from config.celery import app
 
 def check_celery_status(request):
@@ -341,16 +340,16 @@ def check_celery_status(request):
         return JsonResponse({
             'status': 'error', 
             'message': str(e)
-        }, status=500)</code></pre>
+        }, status=500)</pre>
 
     <h3 class="doc-subheader">urls.py 설정</h3>
-    <pre><code class="language-python">from django.urls import path
+    <pre>from django.urls import path
 from . import views
 
 urlpatterns = [
     # ... 기존 url ...
     path('celery/status/', views.check_celery_status, name='celery-status'),
-]</code></pre>
+]</pre>
 </section>
 
 <section class="doc-section">
@@ -358,9 +357,9 @@ urlpatterns = [
     <p>스케줄러가 동작하지 않을 때 확인해야 할 사항들입니다.</p>
 
     <h3 class="doc-subheader">1. Django Admin 설정 확인 (가장 중요)</h3>
-    <p><code>DatabaseScheduler</code>를 사용하는 경우 <code>settings.py</code>의 설정보다 DB 설정이 우선합니다.</p>
+    <p>DatabaseScheduler를 사용하는 경우 settings.py의 설정보다 DB 설정이 우선합니다.</p>
     <ul>
-        <li><strong>Admin 접속</strong>: <code>/admin/</code> &gt; <strong>Periodic tasks</strong></li>
+        <li><strong>Admin 접속</strong>: /admin/ &gt; <strong>Periodic tasks</strong></li>
         <li><strong>Enabled 확인</strong>: 해당 태스크의 체크박스가 활성화되어 있는지 확인</li>
         <li><strong>Last Run 확인</strong>: 최근 실행 시간이 갱신되고 있는지 확인</li>
         <li><strong>스케줄 확인</strong>: Interval이 아닌 Crontab이 올바르게 설정되어 있는지 확인</li>
@@ -368,19 +367,19 @@ urlpatterns = [
 
     <h3 class="doc-subheader">2. 로그 파일 확인</h3>
     <ul>
-        <li><strong>celery_beat.log</strong>: <code>Scheduler: Sending due task ...</code> 로그가 찍히는지 확인</li>
-        <li><strong>celery_worker.log</strong>: <code>Received task: ...</code> 및 <code>Task ... succeeded</code> 로그 확인</li>
+        <li><strong>celery_beat.log</strong>: Scheduler: Sending due task ... 로그가 찍히는지 확인</li>
+        <li><strong>celery_worker.log</strong>: Received task: ... 및 Task ... succeeded 로그 확인</li>
     </ul>
 
     <h3 class="doc-subheader">3. 수동 실행 테스트 (Python Shell)</h3>
     <p>태스크 코드 자체의 오류인지 확인하기 위해 쉘에서 직접 실행해봅니다.</p>
-    <pre><code class="language-python">python manage.py shell
+    <pre>python manage.py shell
 
 >>> from asct.tasks import schedule_disk_usage_collection
 >>> # 비동기 호출 (Worker가 받아야 함)
 >>> res = schedule_disk_usage_collection.delay()
 >>> print(res.id)
 >>> # 동기 호출 (직접 실행하여 로직 에러 확인)
->>> schedule_disk_usage_collection()</code></pre>
+>>> schedule_disk_usage_collection()</pre>
 </section>
 {% endblock %}

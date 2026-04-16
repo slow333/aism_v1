@@ -1,0 +1,27 @@
+{% extends 'docs/base_docs.html' %}
+{% block title %} HTML Emoji {% endblock %}
+
+{% block doc_content %}
+{% include 'docs/others/sub_nav.html' %}
+<h1 class="doc-title">HTML Emoji</h1>
+<div class="container">
+    <!-- 특정 부분만 보이기 위한 컨테이너 스크롤 및 크기 제어 -->
+    <div class="wrapCharCodes" style="width: 100%; height: 78vh; overflow: hidden; position: relative; border: 1px solid #ddd; border-radius: 12px; background: #fff;">
+        <iframe src="https://html-css-js.com/html/character-codes/icons/" 
+                style="
+                    position: absolute; 
+                    top: -1360px; /* 상단 헤더 및 메뉴를 가리기 위해 위로 올림 */
+                    left: 0; 
+                    width: 100%; 
+                    height: 2980px; /* 내부 컨텐츠가 충분히 보이도록 높이 설정 */
+                    border: none;
+                    clip-path: inset(220px 0 0 0); /* 상단 220px 부분을 잘라냄 */
+                " 
+                title="HTML Emoji Codes"
+                scrolling="yes">
+            <p>브라우저가 iframe을 지원하지 않습니다. <a href="https://html-css-js.com/html/character-codes/icons/">여기</a>를 클릭하여 직접 확인하세요.</p>
+        </iframe>
+    </div>
+    <p class="text-muted mt-2 small">* 외부 사이트의 레이아웃에 따라 표시 영역이 달라질 수 있습니다.</p>
+</div>
+{% endblock %}

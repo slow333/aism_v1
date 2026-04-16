@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="flex-between">
-    <h1 class="fw-bold text-white"><i class="bi bi-pencil-square me-2"></i>Update shhinfo</h1>
+    <h1 class="fw-bold text-white">✍🏻 Update shhinfo</h1>
 </div>
 {% include 'asct/_nav.html' %}
 <div class="row mb-3">
@@ -24,7 +24,7 @@
                 </span>
                 {% endfor %}
                 <div class="flex-end gap-2">
-                    <a href="{% url 'asct:sshinfo_list' %}{% if request.GET.page %}?page={{request.GET.page }}{% endif %}" class="btn btn-glass-secondary position-relative z-3"><i class="bi bi-arrow-left me-2"></i>List로 이동</a>
+                    <a href="{% url 'asct:sshinfo_list' %}{% if request.GET.page %}?page={{request.GET.page }}{% endif %}" class="btn btn-glass-secondary position-relative z-3">↩ List로 이동</a>
                     <a href="{% url 'asct:sshinfo_update' sshinfo.id %}" class="btn btn-glass-primary position-relative z-3">update</a>
                     <a href="{% url 'asct:sshinfo_delete' sshinfo.id %}" class="btn btn-glass-danger position-relative z-3" onclick="javascript:confirm('삭제하시게요?');">delete</a>
                 </div>

@@ -182,4 +182,9 @@ urlpatterns = [
         TemplateView.as_view(template_name="docs/others/html_css.html"),
         name="docs-html-css",
     ),
+    path(
+        "others/emoji",
+        TemplateView.as_view(template_name="docs/others/emoji.html"),
+        name="docs-emoji",
+    ),
 ]

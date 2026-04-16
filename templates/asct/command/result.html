@@ -3,18 +3,15 @@
 {% block content %}
 <div class="container-fluid px-4">
     {% include 'asct/_nav.html' %}
-    <h1 class="mt-4">Execution Result</h1>
+    <h1 class="mt-3">Execution Result</h1>
     <ol class="breadcrumb mb-4 bg-white py-2 px-3 rounded-3">
-        <li class="breadcrumb-item"><a href="{% url 'asct:cmd_history_list' %}">History</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'asct:cmd_select' %}">Run Command</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'asct:cmd_history_list' %}">History</a> </li>
+        <li class="breadcrumb-item"><a href="{% url 'asct:cmd_select' %}">Run Command</a> </li>
         <li class="breadcrumb-item active">Result</li>
     </ol>
 
     <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-poll me-1"></i>
-            Output
-        </div>
+        <div class="card-header">📡  Output</div>
         <div class="card-body">
             {% if error %}
             <div class="alert alert-danger" role="alert">

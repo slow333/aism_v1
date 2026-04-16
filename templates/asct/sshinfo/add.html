@@ -2,7 +2,7 @@
 {% block title %} Add SSH info {% endblock %}
 
 {% block content %}
-<h1 class="fw-bold text-white"><i class="bi bi-pencil-square me-2"></i>Add SSH info</h1>
+<h1 class="fw-bold text-white">✔️ Add SSH info</h1>
 
 {% include 'asct/_nav.html' %}
 
@@ -13,12 +13,10 @@
             <form method="post" >
                 {% csrf_token %}
                 {{ form.as_p }}
-                <div class="d-flex justify-content-end gap-2 mt-5">
-                    <a href="{% url 'asct:sshinfo_list' %}{% if request.GET.page %}?page={{request.GET.page }}{% endif %}" class="btn btn-glass-secondary rounded-pill px-4">
-                        <i class="bi bi-x-lg me-2"></i>Cancel
-                    </a>
+                <div class="flex-end gap-2 mt-5">
+                    <a href="{% url 'asct:sshinfo_list' %}{% if request.GET.page %}?page={{request.GET.page }}{% endif %}" class="btn btn-glass-secondary rounded-pill px-4">❌ Cancel</a>
                     <button type="submit" class="btn btn-glass-primary rounded-pill px-4">
-                        <i class="bi bi-check-lg me-2"></i>Add SSH
+                        ✒️ Add SSH
                     </button>
                 </div>
             </form>

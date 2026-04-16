@@ -7,9 +7,7 @@
         <div class="card-header fs-4 flex-between">
             <div>Server 정보(매시간 자동수집)</div>
             <div>
-                <a href="{% url 'asct:serverinfo_export' %}" class="btn btn-sm btn-success me-1">
-                    <i class="fas fa-file-excel me-1"></i> Excel
-                </a>
+                <a href="{% url 'asct:serverinfo_export' %}" class="btn btn-sm btn-success me-1">📈 Excel</a>
             </div>
         </div>
         <style>
@@ -55,7 +53,7 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="12" class="text-center">No server information available.</td>
+                        <td colspan="12" class="text-center">No server info available.</td>
                     </tr>
                     {% endfor %}
                 </tbody>

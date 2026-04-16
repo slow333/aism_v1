@@ -1,4 +1,4 @@
-<div id="loadingOverlay" class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center z-9999" style="background-color: rgba(0,0,0,0.5);">
+<div id="loadingOverlay" class="d-none position-fixed top-0 start-0 w-100 h-100 flex-center flex-column z-9999" style="background-color: rgba(0,0,0,0.5);">
     <div class="card glass-card p-4 shadow-lg" style="min-width: 300px;">
         <div class="text-center mb-3">
             <h5 class="card-title">데이터 수집 중</h5>
@@ -11,9 +11,9 @@
 </div>
 
 <script>
-    document.querySelector('.card-body form').addEventListener('submit', function(e) {
-        if (this.checkValidity()) {
-            document.getElementById('loadingOverlay').classList.remove('d-none');
+    $('.card-body form').on('submit', function(e) {
+        if ($(this).checkValidity()) {
+            $('#loadingOverlay').removeClass('d-none');
         }
     });
 </script>

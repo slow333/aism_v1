@@ -5,7 +5,7 @@
 <div class="container-fluid">
     {% include 'asct/_nav.html' %}
     
-    <div class="flex-between flex-wrap flex-md-nowrap align-items-center mb-3 border-bottom">
+    <div class="flex-between flex-wrap flex-md-nowrap mb-3 border-bottom">
         <h1 class="h2">Traffic Usage Trends</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <form class="d-flex me-2" method="get">
@@ -23,9 +23,7 @@
                 <a href="?period=3m{% if query %}&q={{ query|urlencode }}{% endif %}" class="btn btn-sm btn-primary h-31px {% if period == '3m' %}active{% endif %}">3개월</a>
                 <a href="?period=all{% if query %}&q={{ query|urlencode }}{% endif %}" class="btn btn-sm btn-primary h-31px {% if period == 'all' %}active{% endif %}">전체</a>
             </div>
-            <a href="{% url 'asct:traffic_usage_list' %}" class="btn btn-sm btn-secondary h-31px">
-                <i class="bi bi-list-ul"></i> 목록으로
-            </a>
+            <a href="{% url 'asct:traffic_usage_list' %}" class="btn btn-sm btn-secondary h-31px">↩  목록으로</a>
         </div>
     </div>
 
@@ -33,7 +31,7 @@
         <div class="card-body">
             <div class="chart-area" style="text-align: center;">
                 {% if chart_graphic %}
-                <img src="data:image/png;base64,{{ chart_graphic }}" alt="traffic Usage Chart" style="max-width: 100%; height: auto;" />
+                <img src="data:image/png;base64,{{ chart_graphic }}" alt="traffic Usage Chart w-100 h-auto"/>
                 {% else %}
                 <p class="text-center py-5">데이터가 없습니다.</p>
                 {% endif %}

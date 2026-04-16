@@ -4,7 +4,7 @@
 {% block content %}
 {% include 'todos/_nav.html' %}
 <div class="flex-between mb-2">
-    <h1 class="fw-bold text-white"><i class="bi bi-calendar-event me-4"></i>Events List</h1>
+    <h1 class="fw-bold text-white">📄 Events List</h1>
     <span class="badge bg-primary rounded-pill fs-6 px-3 py-2">{{ page_obj.paginator.count }} Events</span>
 </div>
 
@@ -37,16 +37,14 @@
 
                 <div class="mb-1">
                     {% if event.manager %}
-                    <div class="d-flex align-items-center text-secondary">
-                        <i class="bi bi-person-badge me-2"></i>
-                        <span>Manager: {{ event.manager }}</span>
+                    <div class="flex-center text-secondary">
+                        🗝️ Manager: {{ event.manager }}
                     </div>
                     {% endif %}
                 </div>
             </div>
-            <div class="card-footer bg-transparent border-top-0 pb-2 pt-0 px-3 d-flex justify-content-between align-items-center">
-                <div class="text-muted small">
-                    <i class="bi bi-people me-1"></i> {{ event.attendees.count }} Attendees
+            <div class="card-footer bg-transparent border-top-0 pb-2 pt-0 px-3 flex-center">
+                <div class="text-muted small me-2">👩🏻‍👧‍👦 {{ event.attendees.count }} Attendees
                 </div>
                 <div class="position-relative z-2">
                     {% if user.is_authenticated %}

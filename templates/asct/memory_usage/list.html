@@ -1,13 +1,14 @@
 {% extends 'base/base.html' %}
+{% load humanize %}
 {% block title %}Memory Usage {% endblock %}
 
 {% block content %}
 <div class="container-fluid">
     {% include 'asct/_nav.html' %}
-    <div class="flex-between flex-wrap flex-md-nowrap mb-3 border-bottom">
-        <h1 class="h2 doc-title">Memory Usage(매시간 자동수집) </h1>
-        <div class="btn-toolbar mb-md-0">
-            <form class="d-flex me-2" method="get">
+    <div class="flex-between align-items-end flex-wrap flex-md-nowrap mb-3 border-bottom">
+        <div class="h2 doc-title" title="매시간 자동수집">Memory Usage<small class="text-light fs-5">({{ page_obj.paginator.count|intcomma }}개)</small></div>
+        <div class="btn-toolbar mb-md-0 pb-1">
+            <form class="d-flex me-2 m-0" method="get">
                 <select class="form-select form-select-sm me-2" name="q" onchange="this.form.submit()">
                     <option value="">All Hosts</option>
                     {% for host in host_list %}
@@ -16,17 +17,11 @@
                 </select>
             </form>
             <div class="btn-group me-2">
-                <a href="{% url 'asct:memory_usage_chart' %}" class="btn btn-sm btn-info text-white h-31px">
-                    <i class="bi bi-graph-up"></i> Chart View
-                </a>
+                <a href="{% url 'asct:memory_usage_chart' %}" class="btn btn-sm btn-info text-white h-31px">📈 Chart View</a>
                 {% comment %}
-                <a href="{% url 'asct:memory_usage_select' %}" class="btn btn-sm btn-primary h-31px">
-                    <i class="fas fa-server"></i> 수집 실행
-                </a>
+                <a href="{% url 'asct:memory_usage_select' %}" class="btn btn-sm btn-primary h-31px">📡수집 실행</a>
                 {% endcomment %}
-                <a href="{% url 'asct:memory_usage_export' %}" class="btn btn-sm btn-success h-31px">
-                    <i class="fas fa-file-excel"></i> Excel Export
-                </a>
+                <a href="{% url 'asct:memory_usage_export' %}" class="btn btn-sm btn-success h-31px">✔️ Excel Export</a>
             </div>
         </div>
     </div>
@@ -51,7 +46,7 @@
                     <td>{{ mem.data_time|date:"Y-m-d H:i" }}</td>
                     <td>{{ mem.total_memory }}</td>
                     <td>
-                        <div class="d-flex align-items-center">
+                        <div class="flex-center">
                             <span class="me-2 fw-bold">{{ mem.usage_p }}%</span>
                             <div class="progress flex-grow-1" style="height: 10px;">
                                 <div class="progress-bar {% if mem.usage_p >= 80 %}bg-danger{% elif mem.usage_p >= 50 %}bg-warning{% else %}bg-success{% endif %}" 

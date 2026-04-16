@@ -150,7 +150,7 @@ def event_create(request):
             event.save()
             form.save_m2m()
             messages.info(request, "이벤트가 생성되었습니다.")
-            return redirect("todos:event-list")
+            return redirect("todos:calendar")
     else:
         initial = {
             'start_date': request.GET.get('date')
@@ -190,9 +190,7 @@ def event_delete(request, event_id):
         return redirect("login")
     event = Event.objects.get(pk=event_id)
     event.delete()
-    store_previous_page(request)
-
-    return redirect(request.session.pop("previous_page", "todos:event-list"))
+    return redirect("todos:calendar")
 
 @require_POST
 def event_set_complete(request, event_id):

@@ -8,7 +8,7 @@
 </style>
 <div class="container-fluid">
     {% include 'asct/_nav.html' %}
-    <h1 class="mt-4">Dashboard</h1>
+    <h1 class="mt-3">Dashboard</h1>
     <!-- 요약 카드 -->
     <div class="row">
         <div class="col-md-4">
@@ -39,12 +39,9 @@
     <!-- Celery Status Card -->
     <div class="card glass-card mb-4">
         <div class="card-header flex-between">
-            <div>
-                <i class="fas fa-network-wired me-1"></i>
-                Celery Worker Status
-            </div>
+            <div>⌛ Celery Worker Status</div>
             <button class="btn btn-sm btn-outline-primary" onclick="checkCeleryStatus()">
-                <i class="fas fa-sync-alt"></i> Refresh
+                ✨ Refresh
             </button>
         </div>
         <div class="card-body text-start" id="celery-status-body">
@@ -144,13 +141,11 @@ document.addEventListener('DOMContentLoaded', checkCeleryStatus);
         <!-- CPU Usage -->
         <div class="col-md-4">
             <div class="card glass-card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-microchip me-1"></i> Top CPU Usage (%)
-                </div>
+                <div class="card-header">🚦 Top CPU Usage (%) </div>
                 <div class="card-body">
                     {% for server in top_cpu_usage %}
                     <div class="mb-2">
-                        <div class="d-flex justify-content-between small mb-1">
+                        <div class="flex-between small mb-1">
                             <span>{{ server.hostname }}</span>
                             <span class="fw-bold">{{ server.cpu_usage }}%</span>
                         </div>
@@ -167,13 +162,11 @@ document.addEventListener('DOMContentLoaded', checkCeleryStatus);
         <!-- Memory Usage -->
         <div class="col-md-4">
             <div class="card glass-card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-memory me-1"></i> Top Memory Usage (%)
-                </div>
+                <div class="card-header">🎰 Top Memory Usage (%)</div>
                 <div class="card-body">
                     {% for server in top_memory_usage %}
                     <div class="mb-2">
-                        <div class="d-flex justify-content-between small mb-1">
+                        <div class="flex-between small mb-1">
                             <span>{{ server.hostname }}</span>
                             <span class="fw-bold">{{ server.memory_usage }}%</span>
                         </div>
@@ -190,13 +183,11 @@ document.addEventListener('DOMContentLoaded', checkCeleryStatus);
         <!-- Disk Usage -->
         <div class="col-md-4">
             <div class="card glass-card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-hdd me-1"></i> Top Disk Usage (%)
-                </div>
+                <div class="card-header">🧊 Top Disk Usage (%)</div>
                 <div class="card-body">
                     {% for server in top_disk_usage %}
                     <div class="mb-2">
-                        <div class="d-flex justify-content-between small mb-1">
+                        <div class="flex-between small mb-1">
                             <span>{{ server.hostname }}</span>
                             <span class="fw-bold">{{ server.disk_usage }}%</span>
                         </div>
@@ -217,10 +208,7 @@ document.addEventListener('DOMContentLoaded', checkCeleryStatus);
         <!-- OS 분포 차트 -->
         <div class="col-sm-4">
             <div class="card glass-card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-pie me-1"></i>
-                    OS Distribution
-                </div>
+                <div class="card-header">🍰 OS Distribution</div>
                 <div class="card-body text-center">
                     {% if os_chart %}
                     <img src="data:image/png;base64,{{ os_chart }}" class="img-fluid" alt="OS Distribution Chart">
@@ -233,10 +221,7 @@ document.addEventListener('DOMContentLoaded', checkCeleryStatus);
         <!-- 메모리 상위 서버 차트 -->
         <div class="col-sm-4">
             <div class="card glass-card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-chart-bar me-1"></i>
-                    Top Memory Servers (GB)
-                </div>
+                <div class="card-header">🚦Top Memory Servers (GB)</div>
                 <div class="card-body text-center">
                     {% if memory_chart %}
                     <img src="data:image/png;base64,{{ memory_chart }}" class="img-fluid" alt="Top Memory Servers Chart">
@@ -249,10 +234,7 @@ document.addEventListener('DOMContentLoaded', checkCeleryStatus);
         <!-- 디스크 상위 서버 차트 -->
         <div class="col-sm-4">
             <div class="card glass-card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-hdd me-1"></i>
-                    Top Disk Servers (GB)
-                </div>
+                <div class="card-header">🧊 Top Disk Servers (GB)</div>
                 <div class="card-body text-center">
                     {% if disk_chart %}
                     <img src="data:image/png;base64,{{ disk_chart }}" class="img-fluid" alt="Top Disk Servers Chart">

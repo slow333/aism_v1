@@ -4,7 +4,7 @@
 {% block content %}
 {% include 'notes/_nav.html' %}
 <div class="flex-between mb-2">
-    <h1 class="fw-bold text-white"><i class="bi bi-calendar-event me-4"></i>Notes List</h1>
+    <h1 class="fw-bold text-white">📋 Notes List</h1>
     <span class="badge bg-primary rounded-pill fs-6 px-3 py-2">{{ page_obj.paginator.count }} Notes</span>
 </div>
 
@@ -21,7 +21,7 @@
                             </a>
                         </h4>
                         <small class="text-muted">
-                            <i class="bi bi-clock me-1"></i>{{ note.created_at|date:"Y-m-d H:i" }}
+                            🕐 {{ note.created_at|date:"Y-m-d H:i" }}
                         </small>
                     </div>
                     {% if note.is_completed %}
@@ -38,8 +38,7 @@
                 <div class="mb-1">
                     {% if note.writer %}
                     <div class="d-flex align-items-center text-secondary">
-                        <i class="bi bi-person-badge me-2"></i>
-                        <span>writer: {{ note.writer }}</span>
+                        👨‍💻 writer: {{ note.writer }}
                     </div>
                     {% endif %}
                 </div>

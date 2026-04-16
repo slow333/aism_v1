@@ -1,5 +1,6 @@
 html {
-  background-color: #1b1b1b;
+  background: linear-gradient(to bottom, #000,#222, #444);
+  min-height: 100vh;
 }
 
 body {
@@ -10,10 +11,31 @@ body {
   letter-spacing: -0.015em;
   line-height: 1.6;
   position: relative;
-  background: 
-    url('/static/images/bg-4.jpg') repeat-y center 3rem fixed;
-  background-size: contain;
-  background-color: #1b1b1b; /* 사진과 어울리는 어두운 색상 */
+  background-color: transparent; /* html 배경이 보이도록 투명 설정 */
+}
+
+/* 전체 화면 눈 내리는 배경 효과 */
+html::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 1px, transparent 4px),
+    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.8) 2px, transparent 6px),
+    radial-gradient(circle at 60% 20%, rgba(210, 210, 255, 0.7) 3px, transparent 9px),
+    radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.9) 1.5px, transparent 6px),
+    radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.8) 2.5px, transparent 8px),
+    radial-gradient(circle at 30% 80%, rgba(190, 190, 255, 0.6) 4px, transparent 12px),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.9) 1px, transparent 4px),
+    radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.7) 2px, transparent 6px);
+  background-size: 800px 800px;
+  animation: snowing 14s linear infinite;
+}
+
+@keyframes snowing {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 800px; }
 }
 
 .offcanvas-backdrop.show {

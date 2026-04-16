@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="flex-between">
-    <h1 class="fw-bold text-white"><i class="bi bi-pencil-square me-2"></i>Update Command</h1>
+    <h1 class="fw-bold text-white">✍🏻 Update Command</h1>
 </div>
 {% include 'asct/_nav.html' %}
 <div class="col-md-10 mx-auto">
@@ -17,9 +17,9 @@
             <hr>
             <a href="{% url 'asct:cmd_list' %}?page={{ request.GET.page }}{% if request.GET.category %}&category={{ request.GET.category|urlencode }}{% endif %}" 
                 class="btn btn-glass-secondary position-relative z-3">
-                <i class="bi bi-arrow-left me-2"></i>List로 이동</a>
+                ↩  List로 이동</a>
             <a href="{% url 'asct:cmd_update' command.id %}" 
-                class="btn btn-glass-primary position-relative z-3">update</a>
+                class="btn btn-glass-primary position-relative z-3">✓ update</a>
             <a href="{% url 'asct:cmd_delete' command.id %}" 
                 class="btn btn-glass-danger position-relative z-3" onclick="return confirm('삭제하게요?');">delete</a>
         </div>

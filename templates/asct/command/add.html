@@ -2,8 +2,8 @@
 {% block title %} Add Command {% endblock %}
 
 {% block content %}
-<div class="flex-between mb-4">
-    <h1 class="fw-bold text-white"><i class="bi bi-pencil-square me-2"></i>Add Command</h1>
+<div class="flex-between">
+    <h1 class="fw-bold text-white">✒️ Add Command</h1>
 </div>
 
 {% include 'asct/_nav.html' %}
@@ -15,12 +15,12 @@
             <form method="post" >
                 {% csrf_token %}
                 {{ form.as_p }}
-                <div class="d-flex justify-content-end gap-2 mt-5">
+                <div class="flex-end gap-2 mt-5">
                     <a href="{% url 'asct:cmd_list' %}?page={{request.GET.page }}{% if request.GET.category %}&category={{request.GET.category|urlencode }}{% endif %}" class="btn btn-glass-secondary rounded-pill px-4">
-                        <i class="bi bi-x-lg me-2"></i>Cancel
+                        ⨉ Cancel
                     </a>
                     <button type="submit" class="btn btn-glass-primary rounded-pill px-4">
-                        <i class="bi bi-check-lg me-2"></i>Add Command
+                        ✓ Add Command
                     </button>
                 </div>
             </form>

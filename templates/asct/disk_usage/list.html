@@ -1,14 +1,15 @@
 {% extends 'base/base.html' %}
-{% load custom_filters %}
+{% load custom_filters humanize %}
 {% block title %}SSH 접속정보 리스트{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
     {% include 'asct/_nav.html' %}
     <!-- Page Heading -->
-    <h1 class="h2">disk Usage(매시간 자동수집)</h1>
-    <div class="flex-between flex-wrap flex-md-nowrap mb-3 border-bottom">
-        <form class="d-flex me-2" method="get">
+    
+    <div class="flex-between flex-wrap flex-md-nowrap mb-3 border-bottom align-items-end pb-2">
+        <div class="h2 doc-title m-0" title="매시간 자동수집">Disk Usage<small class="text-light fs-5">({{ page_obj.paginator.count|intcomma }}개)</small></div>
+        <form class="d-flex me-2 align-items-end m-0" method="get">
             <select class="form-select form-select-sm me-2" name="q" onchange="this.form.submit()">
                 <option value="">All Hosts</option>
                 {% for host in host_list %}
@@ -17,21 +18,15 @@
             </select>
             <div class="col-auto">
                 <div class="input-group">
-                    <span class="input-group-text">Min Usage %</span>
-                    <input type="number" name="usage_threshold" class="form-control" value="{{ usage_threshold|default:'' }}" min="0" max="100" style="width: 80px;">
-                    <button class="btn btn-secondary" type="submit">Apply</button>
+                    <span class="input-group-text py-0">Min Usage %</span>
+                    <input type="number" name="usage_threshold" class="form-control p-0" value="{{ usage_threshold|default:'' }}" min="0" max="100" style="width: 80px;">
+                    <button class="btn btn-secondary btn-sm" type="submit">Apply</button>
                 </div>
             </div>
         </form>
         <div class="btn-group me-2">
-            <a href="{% url 'asct:disk_usage_chart' %}" class="btn btn-sm btn-info text-white h-31px">
-                <i class="bi bi-graph-up"></i> Chart View
-            </a>
-            <a href="{% url 'asct:disk_usage_export' %}" class="btn btn-sm btn-success h-31px">
-                <i class="fas fa-file-excel"></i> Excel Export
-            </a>
-            {% comment %}
-            {% endcomment %}
+            <a href="{% url 'asct:disk_usage_chart' %}" class="btn btn-sm btn-info text-white h-31px">📈 Chart View </a>
+            <a href="{% url 'asct:disk_usage_export' %}" class="btn btn-sm btn-success h-31px">📡 Excel Export </a>
         </div>
     </div>
 
@@ -80,7 +75,7 @@
                     <td>{{ disk.mounted }}</td>
                     <td>{{ disk.size }}</td>
                     <td>
-                        <div class="d-flex align-items-center">
+                        <div class="flex-center">
                             <span class="me-2 fw-bold">{{ disk.use_p }}%</span>
                             <div class="progress flex-grow-1 h-10">
                                 <div class="progress-bar {% if disk.use_p >= 80 %}bg-danger{% elif disk.use_p >= 50 %}bg-warning{% else %}bg-success{% endif %}" 

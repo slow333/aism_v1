@@ -113,3 +113,73 @@ div ul li a.nav-link {
     border-color: rgba(255, 255, 255, 0.2);
     border-bottom-color: transparent;
 }
+
+.docs-layout {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 1rem;
+    position: relative;
+}
+
+/* 좌측 사이드바 (TOC) */
+.docs-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    display: none; /* 모바일에서는 숨김 */
+}
+
+@media (min-width: 992px) {
+    .docs-sidebar {
+        display: block;
+    }
+}
+
+.docs-toc {
+    position: sticky;
+    top: 80px; /* 상단 네비게이션 바 높이에 맞춰 조정 */
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    padding-right: 10px;
+    border-right: 1px solid #e9ecef;
+    font-size: 0.9rem;
+}
+
+.docs-toc ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.docs-toc li {
+    margin-bottom: 0.4rem;
+}
+
+.docs-toc a {
+    text-decoration: none;
+    color: #fafafa;
+    display: block;
+    padding: 2px 0;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+    padding-left: 10px;
+}
+
+.docs-toc a:hover, .docs-toc a.active {
+    color: #0d6efd;
+    border-left-color: #0d6efd;
+    background-color: #f8f9fa;
+}
+
+.docs-toc .toc-h3 {
+    padding-left: 20px;
+    font-size: 0.85rem;
+}
+
+/* 우측 본문 영역 */
+.docs-main {
+    flex-grow: 1;
+    min-width: 0; /* Flex item overflow 방지 */
+}
